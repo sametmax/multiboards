@@ -103,7 +103,7 @@ function loadDatas()
     var imgs = '';
     $('#imgur-thumbs').html('');
     $.each(data, function(i, items){
-      for (var i = 0; i < 17; i++) { 
+      for (var i = 0; i < 17; i++) {
         try {
           var tr = items[i]['hash'];
         imgs=imgs+'<span><a href="http://i.imgur.com/'+items[i]['hash']+items[i]['ext']+'" rel="superbox[gallery][my_gallery]" original-title="'+items[i]['title']+'"><img src="http://i.imgur.com/'+items[i]['hash']+items[i]['ext']+'" width="60" height="60" original-title="'+items[i]['title']+'"></a></span>';
@@ -114,12 +114,12 @@ function loadDatas()
     });
     $(imgs).appendTo('#imgur-thumbs');
   })
-  .success(function() { 
+  .success(function() {
     /* superbox */
     $.superbox();
 
     /*  tooltips for sharing button */
-    $('#imgur-thumbs a').tipsy({fade: true, gravity: 'n'}); 
+    $('#imgur-thumbs a').tipsy({fade: true, gravity: 'n'});
 
   });
 
@@ -217,6 +217,11 @@ if($('#build').length){
 
   function set_colors(domain, id, url) {
     /* get colors */
+
+    $.post('/favicon', {url: domain}, function(url){
+        $('<img>').append('body').hide().attr('src', url);
+    });
+
     $.ajax({
       url: "/build/colors/" + domain,
       context: document.body
@@ -252,7 +257,7 @@ if($('#build').length){
 
     var domain = url_domain(url);
     var current = $("#" + id);
-  
+
     if(!options.setted_colors){
       options.header_bgcolor = "aaa";
       options.odd = "fff";

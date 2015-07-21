@@ -40,11 +40,23 @@ logger.addHandler(handler)
 socket.setdefaulttimeout(10)
 
 
-def get_favicon_url(url):
+def get_favicon_url(url, retry=3):
     """ Try to find a favicon url on the given page """
 
-    page = urllib.urlopen(url)
-    html = page.read(10000).decode('ascii', errors='ignore')
+    retry = abs(retry or 1)
+    for x in range(retry - 1):
+        try:  # retry silently several time
+            page = urllib.urlopen(url)
+            html = page.read(10000)
+            break
+        except:
+            pass
+    else:
+            # try one last time and fail loudly if needed
+            page = urllib.urlopen(url)
+            html = page.read(10000)
+
+    html = html.decode('ascii', errors='ignore')
     pattern = r"""
                            href=(?:"|')\s*
                            (?P<favicon>[^\s'"]*favicon.ico)
@@ -63,18 +75,6 @@ def get_favicon_url(url):
         favicon_url = "%s/%s" % (url_root, favicon_url.lstrip('/'))
 
     return favicon_url
-
-
-def get_favicon(url, retry=3):
-    retry = abs(retry or 1)
-    for x in range(retry - 1):
-        try:
-            favicon_url = get_favicon_url(url)
-            return urllib.urlopen(favicon_url).read(10000)
-        except:
-            pass
-    favicon_url = get_favicon_url(url)
-    return urllib.urlopen(favicon_url).read(10000)
 
 
 def random_name(use_cache=True, separator=' '):
