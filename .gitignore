@@ -1,0 +1,17 @@
+.DS_Store
+.svn
+*.sqlite
+*.db
+*.pyc
+.project
+*~
+*.gz
+*.zip
+.~*
+*.tmp
+site/content/
+*.sublime-*
+supervisor.ini
+design/
+multib/
+*.TODO
