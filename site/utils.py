@@ -1,24 +1,26 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# vim: ai ts=4 sts=4 et sw=4
+# coding: utf-8
 
 """
     Main script including routing, controller and server run
 """
 
+from __future__ import unicode_literals
+
+
+import re
 import os
-import sys
-import Image
-import redis
 import socket
-import shutil
-import json
+import random
 import urllib
+import urlparse
 
 import settings
 
 import logging
 import logging.handlers
+
+from codecs import open
 
 
 LOG_FILENAME = '/tmp/multiboards.log'
@@ -38,80 +40,47 @@ logger.addHandler(handler)
 socket.setdefaulttimeout(10)
 
 
-def make_thumbnail(img_path):
-    """
-        Create thumbnail using PIL 
-    """
+def get_favicon(url):
 
-    format = {  "jpeg": "JPEG",
-                "jpg": "JPEG",
-                "png": "PNG",
-                "gif": "GIF"}
-
-    size = 60, 60
- 
-    ext = os.path.splitext(img_path)[1].replace('.', '')
-    outfile = os.path.splitext(img_path)[0]+'t.'+ext
-    if img_path != outfile:
-        try:
-            im = Image.open(img_path)
-            im.thumbnail(size)
-            im.save(outfile, format[ext])
-            return True
-        except IOError:
-            return False
-
-def get_imgur():
-    """
-        Get random picture from imgur and cache them 
-    """
-
-    con = redis.StrictRedis(settings.REDIS.get('host', 'localhost'),
-                        settings.REDIS.get('port', 6379),
-                        settings.REDIS.get('db', 0))
-    
-    imgs_thumb = con.get('imgurimagelist') or []
- 
-
-    # if we have pictures in cache, return them
-    if imgs_thumb:
-        return json.loads(imgs_thumb)
-
-    # else grab some pics from imgur
-    assert settings.CONTENT_FILES_ROOT is not '/'
-
-    # clean picture dir
+    page = urllib.urlopen(url)
+    html = page.read(10000).decode('ascii', errors='ignore')
+    pattern = r"""href=(?:"|'')\s*(?P<favicon>[^\s'"]*favicon.ico)\s*(?:"|'')"""
     try:
-        shutil.rmtree(settings.CONTENT_FILES_ROOT)
-        os.makedirs(settings.CONTENT_FILES_ROOT)
-    except (OSError, IOError):
-        pass
+        match = re.search(pattern, html, re.U)
+        favicon_url = match.groups()[0]
+    except (IndexError, AttributeError):
+        favicon_url = '/favicon.url'
 
-    # get json feed
-    imgs = json.load(urllib.urlopen(settings.IMGUR['url']))
+    parsed_url = urlparse.urlparse(url)
+    url_root = "%s://%s" % (parsed_url.scheme, parsed_url.netloc)
 
-    # loop throught picture list and choose defined number of pics 
-    for img in imgs['data'][:settings.IMGUR['limit']]:
 
-        #download img to disk and make a thumbnail
-        img_name = img['hash'] + img['ext']
-        img_thumb = img['hash'] + 't' + img['ext']
-        img_url = settings.IMGUR_PREFIX + img_name
-        img_path = os.path.join(settings.CONTENT_FILES_ROOT, img_name)
-        urllib.urlretrieve(img_url, img_path)
+def random_name(use_cache=True, separator=' '):
+    """ Return a random combination from a nouns and adjectives file
 
-        # make a tiny thumb
-        if make_thumbnail(img_path):
-            imgs_thumb.append(({'url': img_url,
-                                'thumb': os.path.join(settings.CONTENT_DIR, img_thumb),
-                                'title': img['title']}))
+        Example :
 
-    # json dump list of thumb
-    imgs_thumb = json.dumps(imgs_thumb)
+        >>> random_name()
+    """
 
-    # save list of pics in redis and set an expiration time
-    con.set('imgurimagelist', json.dumps(imgs_thumb))
-    con.expire('imgurimagelist', settings.IMGUR_EXPIRE)
+    nouns_file = os.path.join(settings.ROOT_DIR, 'static/adjectives.txt')
+    adjectives_file = os.path.join(settings.ROOT_DIR, 'static/nouns.txt')
 
-    # return pics list
-    return imgs_thumb
+    if use_cache:
+        try:
+            nouns = random_name._cache['nouns']
+            adjectives = random_name._cache['adjectives']
+        except KeyError:
+            nouns = open(nouns_file, encoding='ascii').readlines()
+            random_name._cache['nouns'] = nouns
+            adjectives = open(adjectives_file, encoding='ascii').readlines()
+            random_name._cache['adjectives'] = adjectives
+    else:
+            nouns = open(nouns_file).readlines()
+            adjectives = open(adjectives_file).readlines()
+
+    noun = random.choice(nouns).strip()
+    adjective = random.choice(adjectives).strip()
+    return "%s%s%s" % (noun, separator, adjective)
+
+random_name._cache = {}

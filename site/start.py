@@ -20,12 +20,13 @@ import bottle
 
 from colorweave import palette
 from BeautifulSoup import BeautifulSoup
-from bottle import route, run, view, static_file, request, abort
+from bottle import route, run, view, static_file, request
 
 import settings as _settings
 
-from models import Custom
+from utils import random_name
 
+from models import Custom
 
 
 con = redis.StrictRedis(_settings.REDIS.get('host', 'localhost'),
@@ -33,19 +34,28 @@ con = redis.StrictRedis(_settings.REDIS.get('host', 'localhost'),
                         _settings.REDIS.get('db', 0))
 socket.setdefaulttimeout(10)
 
+
 @route('/')
 @view('home')
 def index():
     return dict(settings=_settings)
 
+
 @route('/b/:short_url')
 @view('home')
 def ressources(short_url=None):
     """
-        Return custom board 
+        Return custom board
     """
     settings = _settings
     return locals()
+
+
+@route('/randomname')
+def get_random_name():
+    """ Return a random name for a board """
+    return random_name(separator=u'-')
+
 
 @route('/build')
 @view('build')
@@ -57,6 +67,7 @@ def build():
     config_id = str(uuid.uuid4())
     settings = _settings
     return locals()
+
 
 @route('/build/colors/:site')
 def colors(site=None):
@@ -232,7 +243,7 @@ def ressources(choice=None):
     elif choice == 'news':
         return json.dumps(_settings.BOTTOM_NEWS)
 
-    elif choice == 'imgur': 
+    elif choice == 'imgur':
         return urllib.urlopen(_settings.IMGUR).read()
 
     elif choice == 'bottomline':
@@ -254,7 +265,3 @@ def start(host="127.0.0.1", port=8000, debug=True):
 
 if __name__ == "__main__":
     clize.run(start)
-
-
-
-
