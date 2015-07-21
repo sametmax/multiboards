@@ -2,28 +2,24 @@
 <div class="row-fluid">
   <div class="span12 build-header center">
 
-  <span class="white justify-left medium">
-  Créez votre Multiboards,<br><br>
-  Vous pouvez créer votre propre multiboards avec les sources RSS qui vous conviennent.<br>
-  Tous les Boards créés sont publics et accessibles depuis la page <a href="/boards"> Boards</a>.<br>
+    <span class="white justify-left medium">
+    Créez votre Multiboards,<br><br>
+    Vous pouvez créer votre propre multiboards avec les sources RSS qui vous conviennent.<br>
+    Tous les Boards créés sont publics et accessibles depuis la page <a href="/boards"> Boards</a>.<br>
+    </span>
  
-  <span class="custom-board-url">
-    L'adresse de votre Multiboards personnalisé est: <a href="haha">http://multiboards.net/fizufh</a>
-  </span>
-
-  </span>
-
     <span class="form-flux">
       <p class="bold">Entrez un nom pour votre Board</p>
       <input type="text" id="board-name">
-      <br><br>
       <p class="bold">Entrez l'adresse du flux RSS à ajouter</p>
       <input type="text" id="board-url" data-uuid="{{ config_id }}" value="http://lehollandaisvolant.net/rss.php?mode=links">
       <button id="submit-flux" class="btn">Ajouter le flux RSS</button>
-    </span>
-
-    <span class="custom-url">
-      <div id="custom-url" style="display:none" class="white-big"></div>
+      <br>
+      <button id="custom-url" class="hide  btn custom-url save-board bold">jjejejej</button>
+        <!-- 
+        <span class="custom-url">
+        <div id="custom-url" style="display:none" class="white-big"></div>
+        </span> -->
     </span>
 
   </div> 

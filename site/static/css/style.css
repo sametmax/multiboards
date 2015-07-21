@@ -32,7 +32,9 @@ color: #fff;
 .justify-left{
 text-align: left;
 }
-
+.bold {
+	font-weight: bold;
+}
 
 .about span{
 	font-size: 10px;
@@ -287,6 +289,20 @@ padding-top: 7px;
 
 /* build page */
 
+.btn.save-board {
+margin: 0 auto;
+margin-top: 10px;
+background-color: #91B17A !important;
+background-image: none !important;
+text-shadow: none;
+color: #fff;
+font-size: 16px;
+font-weight: 300;
+padding: 10px;
+}
+.btn.save-board:hover {
+background-color: #74a051 !important;
+}
 .form-flux{
 margin-top: 20px;
 }
@@ -294,10 +310,6 @@ margin-top: 20px;
 #submit-flux {
   height: 30px;
   vertical-align: top;
-  font-size: 17px;
-}
-.bold {
-	font-weight: bold;
 }
 .build-header {
 margin-top: 40px;

@@ -288,14 +288,13 @@ if($('#build').length){
   $( "#sortable" ).disableSelection();
 
   /* submit flux */
-
   function submit_flux(e) {
 
     var url = $('#board-url').val();
     var filled = false;
     var code = e.keyCode || e.which;
     // on Enter
-    if(code == 13 || e.type == 'paste'){
+    if(code == 13 || e.type == 'paste' || e.type == 'click'){
       // check empty slot, then add new feed
       $("#sortable").find($(".board-container")).each(function(){
         var current = $(this);
@@ -310,12 +309,7 @@ if($('#build').length){
 
   }
 
-  $( "#board-url" ).bind("keypress", function(e) {
-    submit_flux(e);
-  });
-
-  /* Save board config */
-  $("#sortable").on("sortupdate", function( event, ui ) {
+  function save_board(){
 
     /* get array */
     var boards = [];
@@ -334,7 +328,22 @@ if($('#build').length){
         $("#custom-url").html(data);
         $("#custom-url").show();
     });
+  }
 
+
+  $( "#board-url" ).bind("keypress", function(e) {
+    submit_flux(e);
+    save_board();
+  });
+
+  $( "#submit-flux" ).bind("click", function(e) {
+    submit_flux(e);
+    save_board();
+  });
+
+  /* Save board config */
+  $("#sortable").on("sortupdate", function( event, ui ) {
+    save_board();
   });
 
 
