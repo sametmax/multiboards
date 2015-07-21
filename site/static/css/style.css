@@ -97,7 +97,6 @@ background-color: #333;
 .dropdown-menu {
 max-width: 400px;
 overflow: hidden;
-height: 600px;
 overflow-y: scroll;
 }
 
@@ -301,7 +300,7 @@ margin-top: 20px;
 	font-weight: bold;
 }
 .build-header {
-	margin-top: 10px;
+margin-top: 40px;
 }
 .build-header span{
 	display: inline-block;

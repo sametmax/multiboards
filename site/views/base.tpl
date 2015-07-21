@@ -41,7 +41,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </a> 
+          </a>
           <a class="brand" href="/"><strong>Multi</strong>boards<span>.net</span></a>
           <div class="nav-collapse">
             <ul class="nav">
@@ -84,8 +84,34 @@
                     <span id="radios"></span>   
                   </ul>
                 </li>
+                <li class="divider-vertical"></li>
             </ul>
+
             <span class="pull-right upper-right"> 
+              <div class="nav-collapse">
+                <ul class="nav">
+                  <li class="divider-vertical"></li>
+                  <li><a href="">Créer un Board</a></li>
+                  <li class="divider-vertical"></li>
+                  <li class="dropdown">
+                    <a href="#"
+                          class="dropdown-toggle"
+                          data-toggle="dropdown">
+                          <span id="boards-list">Les boards populaires</span>
+                          <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#" >Boards name a </a></li>
+                      <li><a href="#" >Boards name b </a></li>
+                      <li><a href="#" >Boards name c </a></li>
+                      <li><a href="#" >Boards name d </a></li>
+                      <li><a href="#" >Boards name e </a></li>
+                    </ul>
+                  </li>
+                  <li class="divider-vertical"></li>
+                </ul>
+              </div>
+
               <span class="about ">
                 "Le meilleur du web"<br>
                 <span>sur une seule page...</span>
