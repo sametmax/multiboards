@@ -40,19 +40,41 @@ logger.addHandler(handler)
 socket.setdefaulttimeout(10)
 
 
-def get_favicon(url):
+def get_favicon_url(url):
+    """ Try to find a favicon url on the given page """
 
     page = urllib.urlopen(url)
     html = page.read(10000).decode('ascii', errors='ignore')
-    pattern = r"""href=(?:"|'')\s*(?P<favicon>[^\s'"]*favicon.ico)\s*(?:"|'')"""
+    pattern = r"""
+                           href=(?:"|')\s*
+                           (?P<favicon>[^\s'"]*favicon.ico)
+                           \s*(?:"|')
+                      """
     try:
-        match = re.search(pattern, html, re.U)
+        match = re.search(pattern, html, re.U|re.VERBOSE)
         favicon_url = match.groups()[0]
     except (IndexError, AttributeError):
-        favicon_url = '/favicon.url'
+        favicon_url = '/favicon.ico'
 
     parsed_url = urlparse.urlparse(url)
     url_root = "%s://%s" % (parsed_url.scheme, parsed_url.netloc)
+
+    if url_root not in favicon_url:
+        favicon_url = "%s/%s" % (url_root, favicon_url.lstrip('/'))
+
+    return favicon_url
+
+
+def get_favicon(url, retry=3):
+    retry = abs(retry or 1)
+    for x in range(retry - 1):
+        try:
+            favicon_url = get_favicon_url(url)
+            return urllib.urlopen(favicon_url).read(10000)
+        except:
+            pass
+    favicon_url = get_favicon_url(url)
+    return urllib.urlopen(favicon_url).read(10000)
 
 
 def random_name(use_cache=True, separator=' '):
