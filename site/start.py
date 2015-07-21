@@ -121,10 +121,10 @@ def save():
             boards.save()
             return prefix_url + boards.short
         except Exception:
-            boards = Custom.create( name = 'test',
-                                    uuid = uid, 
-                                    infos = json.dumps(infos),
-                                    short = '')
+            boards = Custom.create(name='test',
+                                   uuid=uid,
+                                   infos=json.dumps(infos),
+                                   short='')
             url = short_url.encode_url(boards.id)
             boards.short = url
             boards.save()

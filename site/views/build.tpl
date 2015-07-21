@@ -14,6 +14,9 @@
   </span>
 
     <span class="form-flux">
+      <p class="bold">Entrez un nom pour votre Board</p>
+      <input type="text" id="board-name">
+      <br><br>
       <p class="bold">Entrez l'adresse du flux RSS à ajouter</p>
       <input type="text" id="board-url" data-uuid="{{ config_id }}" value="http://lehollandaisvolant.net/rss.php?mode=links">
       <button id="submit-flux" class="btn">Ajouter le flux RSS</button>
