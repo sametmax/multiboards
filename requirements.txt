@@ -4,8 +4,6 @@ bottle==0.10.11
 clize==1.0b
 colormath==1.0.8
 distribute==0.6.24
-ipdb==0.7
-ipython==0.13
 redis==2.6.0
 wsgiref==0.1.2
 numpy==1.8.0

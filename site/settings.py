@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # vim: ai ts=4 sts=4 et sw=4
 
+from __future__ import unicode_literals
 
 ######## NOT SETTINGS, JUST BOILER PLATE ##############
 import os
