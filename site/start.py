@@ -20,11 +20,11 @@ import bottle
 
 from colorweave import palette
 from BeautifulSoup import BeautifulSoup
-from bottle import route, run, view, static_file, request
+from bottle import route, run, view, static_file, request, HTTPError, post
 
 import settings as _settings
 
-from utils import random_name
+from utils import random_name, get_favicon
 
 from models import Custom
 
@@ -55,6 +55,19 @@ def ressources(short_url=None):
 def get_random_name():
     """ Return a random name for a board """
     return random_name(separator=u'-')
+
+
+@post('/favicon')
+def fetch_favicon():
+    """ Return the favicon from a website """
+    try:
+        url = request.POST['url']
+    except KeyError:
+        raise HTTPError(400, "You must pass a URL")
+    try:
+        return get_favicon(url)
+    except (IOError):
+        raise HTTPError(400, "Unable to find favicon")
 
 
 @route('/build')
