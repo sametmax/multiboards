@@ -205,57 +205,81 @@ if($('#row-boards').length){
 
 }
 
-/* Build custom boards */
-if($('#build').length){
-
-  function url_domain(data) {
+function url_domain(data) {
     var a = document.createElement('a');
     a.href = data;
     return a.hostname;
-  }
+}
 
 
-  function set_colors(domain, id, url) {
+/* Build custom boards */
+if($('#build').length){
+
+
+  function set_colors(id, url) {
     /* get colors */
 
-    $.post('/favicon', {url: domain}, function(url){
-        $('<img>').append('body').hide().attr('src', url);
-    });
 
-    $.ajax({
-      url: "/build/colors/" + domain,
-      context: document.body
-    }).done(function(data) {
-      boards_colors[domain] = data;
-      if(data != 'error'){
+    var domain = url_domain(url);
+    console.log('set color')
+    $.post('/favicon', {url: url}).done(function(data){
 
-        bc = eval(boards_colors[domain]);
+        // TODO: find if we can load external images from
+        // here instead of from the serveur
+        var image = new Image;
+        image.src = data;
+        image.onload = function() {
+            var colorThief = new ColorThief();
+            var bc = colorThief.getPalette(image);
 
-        /* Add some sweet colors for odd & even */
-        bc.push('eee');
-        bc.push('fff');
+            function componentToHex(c) {
+                var hex = c.toString(16);
+                return hex.length == 1 ? "0" + hex : hex;
+            }
 
-        /* Define board colors */
-        options.header_bgcolor = bc[0];
-        options.odd = bc[1];
-        options.even = bc[2];
-        options.setted_colors = true;
+            function rgbToHex(array) {
+                return componentToHex(array[0]) + componentToHex(array[1]) + componentToHex(array[2]);
+            }
 
-        /* add colors picker to board */
-        // var colors_list = '';
-        // $(bc).each(function(index, value){
-        //   colors_list += '<li style="background-color:' + value + ';"></li>';
-        // });
-        // $(".colors-" + id).html('<div class="board-options"><ul>' + colors_list +  '</ul></div>');
+            function increase_brightness(hex, percent){
+                // strip the leading # if it's there
+                hex = hex.replace(/^\s*#|\s*$/g, '');
 
-        refresh_board(id, url);
-      }
+                // convert 3 char codes --> 6, e.g. `E0F` --> `EE00FF`
+                if(hex.length == 3){
+                    hex = hex.replace(/(.)/g, '$1$1');
+                }
+
+                var r = parseInt(hex.substr(0, 2), 16),
+                    g = parseInt(hex.substr(2, 2), 16),
+                    b = parseInt(hex.substr(4, 2), 16);
+
+                return '' +
+                   ((0|(1<<8) + r + (256 - r) * percent / 100).toString(16)).substr(1) +
+                   ((0|(1<<8) + g + (256 - g) * percent / 100).toString(16)).substr(1) +
+                   ((0|(1<<8) + b + (256 - b) * percent / 100).toString(16)).substr(1);
+            }
+
+            /* Define board colors */
+            options.header_bgcolor = rgbToHex(bc[0]);
+            options.odd = increase_brightness(rgbToHex(bc[1]), 90);
+            options.even = increase_brightness(rgbToHex(bc[2]), 90);
+            options.setted_colors = true;
+
+            boards_colors[domain] = [options.header_bgcolor, options.odd, options.even];
+
+            refresh_board(id, url);
+            return data
+        }
+    }).fail(function(data){
+        console.log('Fail to set color');
     });
   }
 
   function refresh_board(id, url) {
 
     var domain = url_domain(url);
+
     var current = $("#" + id);
 
     if(!options.setted_colors){
@@ -279,7 +303,7 @@ if($('#build').length){
 
     current.rssfeed(url, options, function(e){
       if(options.setted_colors === false){
-        set_colors(domain, id, url);
+        set_colors(id, url);
       }else{
         options.setted_colors = false;
       }

@@ -6,8 +6,6 @@
     Main script including routing, controller and server run
 """
 
-import os
-import re
 import json
 import urllib
 import socket
@@ -17,14 +15,13 @@ import redis
 import clize
 import short_url
 import bottle
+import base64
 
-from colorweave import palette
-from BeautifulSoup import BeautifulSoup
 from bottle import route, run, view, static_file, request, HTTPError, post
 
 import settings as _settings
 
-from utils import random_name, get_favicon_url
+from utils import random_name, fetch_favicon
 
 from models import Custom
 
@@ -58,14 +55,17 @@ def get_random_name():
 
 
 @post('/favicon')
-def fetch_favicon():
+def fetch_favicon_base64():
     """ Return the favicon URL from a website """
     try:
         url = request.POST['url']
     except KeyError:
         raise HTTPError(400, "You must pass a site URL")
     try:
-        return get_favicon_url(url)
+        # return favicon as base64 url to be easily included in
+        # a img tag
+        favicon = fetch_favicon(url)
+        return b'data:image/x-icon;base64,' + base64.b64encode(favicon)
     except (IOError):
         raise HTTPError(400, "Unable to find any favicon URL")
 
@@ -80,52 +80,6 @@ def build():
     config_id = str(uuid.uuid4())
     settings = _settings
     return locals()
-
-
-@route('/build/colors/:site')
-def colors(site=None):
-    """
-        Grab website dominant colors and return random matching colors
-    """
-
-    if site and request.is_ajax:
-
-        # check if key in redis
-        key = 'colors:%s' % site
-
-        if con.get(key):
-            return con.get(key)
-
-        else:
-            try:
-
-                url = 'http://' + site
-
-                # get site favicon url
-                page = urllib.urlopen(url)
-                soup = BeautifulSoup(page)
-                icon_link = soup.find("link", rel=re.compile('icon'))['href']
-
-                if icon_link == "":
-                    return error
-                else:
-                    # Build absolute path if not exist
-                    if icon_link.find('http') < 0:
-                        icon_link = os.path.join(url, icon_link)
-
-                # get favicon dominants colors and cache them for future use
-                colors = [s.replace('#', '') for s in palette(url=icon_link)]
-                colors.reverse()
-                json_colors = json.dumps(colors)
-                con.set(key, json_colors)
-                con.expire(key, 3600*24*30)
-
-                return json_colors
-
-            except Exception:
-                return 'error'
-
-    return 'error'
 
 
 @route('/build/save', method='POST')
@@ -158,6 +112,10 @@ def save():
 @route('/static/<filename:path>')
 def server_static(filename):
     return static_file(filename, root=_settings.STATIC_FILES_ROOT)
+
+@route('/favicon.ico')
+def server_static():
+    return static_file('img/favicon.ico', root=_settings.STATIC_FILES_ROOT)
 
 
 @route('/content/<filename:path>')

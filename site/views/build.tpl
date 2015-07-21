@@ -7,7 +7,7 @@
     Vous pouvez créer votre propre multiboards avec les sources RSS qui vous conviennent.<br>
     Tous les Boards créés sont publics et accessibles depuis la page <a href="/boards"> Boards</a>.<br>
     </span>
- 
+
     <span class="form-flux">
       <p class="bold">Entrez un nom pour votre Board</p>
       <input type="text" id="board-name">
@@ -16,16 +16,16 @@
       <button id="submit-flux" class="btn">Ajouter le flux RSS</button>
       <br>
       <button id="custom-url" class="hide  btn custom-url save-board bold">jjejejej</button>
-        <!-- 
+        <!--
         <span class="custom-url">
         <div id="custom-url" style="display:none" class="white-big"></div>
         </span> -->
     </span>
 
-  </div> 
-</div> 
+  </div>
+</div>
 
-<!-- main boards list --> 
+<!-- main boards list -->
 <div class="row-fluid">
   <div class="center"></div>
   <div class="span12" id="build">
@@ -40,11 +40,11 @@
     %end
     </ul>
   </div>
-</div> 
+</div>
 
 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"> 
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script src="/static/js/color-thief"></script>
+<script src="/static/js/color-thief.js"></script>
 
 %rebase base settings=settings
