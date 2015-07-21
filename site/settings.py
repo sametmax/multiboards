@@ -5,7 +5,6 @@
 
 ######## NOT SETTINGS, JUST BOILER PLATE ##############
 import os
-import math
 
 VERSION = '0.1'
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -48,8 +47,8 @@ REDIS = {
 # Names/links to insert in the menu bar.
 # Any link with "mailto:" will be escaped to prevent spam
 MENU = (
-    ('Accueil', '/', ''), # home sweet home
-    ('Contact', 'mailto:lesametlemax@gmail.com', '') # email
+    # ('Accueil', '/', ''), # home sweet home
+    # ('Contact', 'mailto:lesametlemax@gmail.com', '') # email
 )
 
 # sites to scan
@@ -182,7 +181,7 @@ RADIOS = (
     'http://listen.di.fm/public3/electro.pls',
     'http://listen.di.fm/public3/goapsy.pls',
     'http://listen.di.fm/public3/djmixes.pls',
-    'http://listen.di.fm/public3/classictechno.pls',   
+    'http://listen.di.fm/public3/classictechno.pls',
     'http://yp.shoutcast.com/sbin/tunein-station.pls?id=221706',
     'http://yp.shoutcast.com/sbin/tunein-station.pls?id=261838',
     'http://yp.shoutcast.com/sbin/tunein-station.pls?id=2057543',

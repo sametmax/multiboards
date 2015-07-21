@@ -94,7 +94,6 @@
           </div><!--/.nav-collapse -->
         </div>
       </div>
-      <div class="border-bottom"></div>
     </div>
   
     <div class="container well" > 

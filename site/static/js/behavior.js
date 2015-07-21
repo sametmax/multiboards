@@ -106,13 +106,13 @@ function loadDatas()
       for (var i = 0; i < 17; i++) { 
         try {
           var tr = items[i]['hash'];
-        imgs=imgs+'<a href="http://i.imgur.com/'+items[i]['hash']+items[i]['ext']+'" rel="superbox[gallery][my_gallery]" original-title="'+items[i]['title']+'"><img src="http://i.imgur.com/'+items[i]['hash']+items[i]['ext']+'" width="60" height="60" original-title="'+items[i]['title']+'"></a>';
+        imgs=imgs+'<span><a href="http://i.imgur.com/'+items[i]['hash']+items[i]['ext']+'" rel="superbox[gallery][my_gallery]" original-title="'+items[i]['title']+'"><img src="http://i.imgur.com/'+items[i]['hash']+items[i]['ext']+'" width="60" height="60" original-title="'+items[i]['title']+'"></a></span>';
         }
         catch(err)
         {}
       }
     });
-    $('<ul>'+imgs+'</ul>').appendTo('#imgur-thumbs');
+    $(imgs).appendTo('#imgur-thumbs');
   })
   .success(function() { 
     /* superbox */

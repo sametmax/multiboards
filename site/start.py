@@ -98,7 +98,7 @@ def colors(site=None):
 
                 return json_colors
 
-            except Exception, e:
+            except Exception:
                 return 'error'
 
     return 'error'
@@ -148,7 +148,7 @@ def online():
         use redis to store IP in 20 mins session then count number of ips
     """
 
-    #get or create ip
+    # get or create ip
     user_ip = request.remote_addr
 
     key = 'online-user:%s' % user_ip
