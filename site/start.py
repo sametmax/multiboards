@@ -51,7 +51,8 @@ def ressources(short_url=None):
 @route('/randomname')
 def get_random_name():
     """ Return a random name for a board """
-    return random_name(separator=u'-')
+    if request.is_ajax:
+        return random_name(separator=u'-')
 
 
 @post('/favicon')
@@ -90,16 +91,17 @@ def save():
     uid = request.POST['uuid']
     prefix_url = "http://multiboards.net/b/"
     infos = request.POST['urls'].replace('undefined', '')
+    name = request.POST['name']
 
     if uid and request.is_ajax:
         try:
             boards = Custom.get(Custom.uuid == uid)
-            boards.name = 'test'
+            boards.name = name
             boards.infos = json.dumps(infos)
             boards.save()
             return prefix_url + boards.short
         except Exception:
-            boards = Custom.create(name='test',
+            boards = Custom.create(name=name,
                                    uuid=uid,
                                    infos=json.dumps(infos),
                                    short='')
@@ -153,7 +155,6 @@ def ressources(choice=None):
     """
         <radios>
         return radios urls and names from settings RADIOS
-        compatible with PLS and M3U formats
 
         <sources>
         return sites sources to scan feed
@@ -165,28 +166,8 @@ def ressources(choice=None):
     if choice == 'radios':
 
         radios = []
-
         for playlist in _settings.RADIOS:
-            try:
-                data = urllib.urlopen(playlist).read().split('\n')
-            except:
-                break
-
-            radio_title = ''
-            radio_url = ''
-            for line in data:
-                if line.split('=')[0] == 'File1':
-                    radio_url = line.split('=')[1]
-                if line.split('=')[0] == 'Title1':
-                    radio_title = line.split('=')[1]
-                if line.split(':')[0] == '#EXTINF':
-                    radio_title = line.split('#EXTINF:')[1]
-                if line[:5] == 'http:':
-                    radio_url = line
-
-            if radio_title and radio_url:
-                radios.append({'title': radio_title.replace('_', ' ').title(),
-                               'url': radio_url})
+            radios.append({'name': playlist[0], 'url': playlist[1]})
 
         return json.dumps(radios)
 

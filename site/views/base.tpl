@@ -27,8 +27,9 @@
     <script src="/static/js/jquery.tipsy.js"></script>
     <script src="/static/js/behavior.js?2"></script>
     <script src="/static/js/jquery.zrssfeed.js?233" ></script>
-    <script src="/static/js/jwplayer.js" ></script> 
     <script src="/static/js/jquery.superbox.js?2"></script>
+    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+    <script src="/static/js/player.js"></script>
   </head>
 
   <body>
@@ -69,18 +70,40 @@
                 </li>
               %end
                 <li class="divider-vertical"></li>
+                <div id="player">
+                  <span><i class="icon-white icon-play"></i></span>
+                  <span><i class="icon-white icon-pause"></i></span>
+                  <span><i class="icon-white icon-play"></i></span>
+                </div>
+
                 <li class="dropdown">
+
+                <!-- Audio Player -->
+                  <!-- <div class="player">
+                      <div class="pl"></div>
+                      <div class="title"></div>
+                      <div class="artist"></div>
+                      <div class="cover"></div>
+                      <div class="controls">
+                          <div class="play"></div>
+                          <div class="pause"></div>
+                          <div class="rew"></div>
+                          <div class="fwd"></div>
+                      </div>
+                      <div class="volume"></div>
+                      <div class="tracker"></div>
+                  </div>
+                  <ul class="playlist hidden">
+                      <li audiourl="http://stream.radioreklama.bg/city.ogg" cover="cover1.jpg" artist="Artist 1">01.mp3</li>
+                  </ul>
+                   -->
+
                   <a href="#"
                         class="dropdown-toggle"
                         data-toggle="dropdown">
-                        <span id="radio-title">Radios</span>
-                        <b class="caret"></b>
+                      <b class="caret"></b>
                   </a>
                   <ul class="dropdown-menu">
-                    <li><a id="volume-down" href="#" title="Tu me dis de le faire moins fort, je le fais moins fort..."><i class="icon-volume-down"></i> Moins fort</a></li>
-                    <li><a id="volume-up" href="#"><i class="icon-volume-up"></i> Plus fort</a></li>
-                    <li><a id="volume-off" href="#"><i class="icon-volume-off"></i> Eteindre la radio</a></li>
-                    <li class="divider"></li>
                     <span id="radios"></span>   
                   </ul>
                 </li>
@@ -129,7 +152,6 @@
         	<div class="push"></div>
     </div><!--/wrap-content-->
  
-      <div id="player" ></div>
       <footer class="container-fluid footer"> 
         <p> 
            <strong>Powered by <a href="http://sametmax.com">Sam&amp;Max</a> - 2012-20..</strong><br>
