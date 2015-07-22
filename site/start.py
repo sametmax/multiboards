@@ -1,6 +1,7 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# vim: ai ts=4 sts=4 et sw=4
+#  coding: utf-8
+
+from __future__ import unicode_literals, absolute_import
 
 """
     Main script including routing, controller and server run
@@ -17,6 +18,8 @@ import short_url
 import bottle
 import base64
 
+from datetime import datetime
+
 from bottle import route, run, view, static_file, request, HTTPError, post
 
 import settings as _settings
@@ -31,6 +34,7 @@ con = redis.StrictRedis(_settings.REDIS.get('host', 'localhost'),
                         _settings.REDIS.get('db', 0))
 socket.setdefaulttimeout(10)
 
+url_encoding = short_url.UrlEncoder('กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลฦวศษสหฬอฮฯะเแโใไๅๆ๏๐๑๒๓๔๕๖๗๘๙๚๛')
 
 @route('/')
 @view('home')
@@ -105,7 +109,7 @@ def save():
                                    uuid=uid,
                                    infos=json.dumps(infos),
                                    short='')
-            url = short_url.encode_url(boards.id)
+            url = url_encoding.encode_url(boards.id)
             boards.short = url
             boards.save()
             return prefix_url + url
@@ -125,29 +129,48 @@ def server_content(filename):
     return static_file(filename, root=_settings.CONTENT_FILES_ROOT)
 
 
-@route('/online')
-def online():
+@post('/online/')
+@post('/online/<board>')
+def online(board="rootboard"):
     """
         return number of online visitor
-        use redis to store IP in 20 mins session then count number of ips
+        use redis to store IP in 10 mins session then count number of ips
     """
 
-    # get or create ip
-    user_ip = request.remote_addr
+    # poor man stats : using ip address as unique id for each user
+    user_id = request.remote_addr
+    board = board.decode('utf8')
+    online_user_key = "board:%s:online-users" % board
 
-    key = 'online-user:%s' % user_ip
+    # get timestamps that we will use as scores for the redis sorted sets
+    now = (datetime.utcnow() - datetime(1970, 1, 1)).total_seconds()
+    ten_minutes_ago = now - (60 * 60 * 10)
 
-    if con.get(key):
-        counter = '%s,%s,%s,%s' % (len(con.keys("*online-user*")),
-                                   random.randrange(100, 999),
-                                   random.randrange(100, 999),
-                                   random.randrange(100, 999))
-        return json.dumps({'online_users': counter})
-    else:
-        # store ip user for 10 mins
-        con.set(key, 'dummy')
-        con.expire(key, 1 * 60 * 20)
-        return json.dumps({'online_users': '1'})
+    # add current user to count
+    con.zadd(online_user_key, now, user_id)
+    # remove any entry older than 10 minutes
+    con.zremrangebyscore(online_user_key, 0, ten_minutes_ago)
+    # get user count between now and 10 minutes ago
+    count = con.zcount(online_user_key, ten_minutes_ago, now)
+
+    # do the same with the board name so we have a number of active
+    # boards
+    con.zadd('boards:active', now, board)
+    con.zremrangebyscore('boards:active', 0, ten_minutes_ago)
+
+    # generate funny counter
+    values = [count] + [random.randint(100, 999) for i in range(3)]
+    counter = '%s,%s,%s,%s' % tuple(values)
+
+    return counter
+
+
+@route('/boards/best')
+def active_boards():
+    """ Return the most active boards"""
+    boards = con.zrangebyscore('boards:active', 0, float('+inf'))
+    boards = [b for b in boards if b != 'rootboard']
+    return {'boards': boards}
 
 
 @route('/json/:choice')
@@ -176,7 +199,7 @@ def ressources(choice=None):
         # if we have a custom board
         if request.query['short_url']:
             try:
-                boards = Custom.get(Custom.id == short_url.decode_url(request.query['short_url']))
+                boards = Custom.get(Custom.id == url_encoding.decode_url(request.query['short_url']))
                 boards = json.loads(boards.infos)
 
                 # Replace default boards by custom

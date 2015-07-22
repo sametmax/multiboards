@@ -15,16 +15,7 @@
       <input type="text" id="board-url" data-uuid="{{ config_id }}" value="http://sametmax.com/feed/">
       <button id="submit-flux" class="btn">Ajouter le flux RSS</button>
       <br>
-<<<<<<< Updated upstream
       <button data-url="" id="custom-url" class="hide btn custom-url save-board bold"></button>
-
-=======
-      <button id="custom-url" class="hide  btn custom-url save-board bold"></button>
-        <!--
-        <span class="custom-url">
-        <div id="custom-url" style="display:none" class="white-big"></div>
-        </span> -->
->>>>>>> Stashed changes
     </span>
 
   </div>
