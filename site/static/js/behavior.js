@@ -289,10 +289,18 @@ if($('#build').length){
       $("#sortable").find($(".board-container")).each(function(){
         var current = $(this);
         if( ( current.find($(".board-wrapper")).attr('data-url') === undefined && filled === false )|| current.find($(".board-wrapper")).attr('data-url') == url ) {
+
+          var message = current.find('.slot-message');
           /* build board */
           refresh_board(current.find(".board-wrapper").attr('id'), url);
           /* set slot as taken */
           filled = true;
+          current.find('.clear-board-link').removeClass('hidden').one('click', function(){
+            $(this).addClass('hidden');
+            current.find(".board-wrapper").removeData('url');
+            current.find('.board-wrapper').html('').append(message);
+            save_board()
+          });
         }
       });
     }
@@ -316,7 +324,7 @@ if($('#build').length){
     $.post( "/build/save", { 'name': $('#board-name').val(), 'urls': JSON.stringify(boards), 'uuid' : $("#board-url").attr('data-uuid') } )
       .done(function( data ) {
         var curl = $("#custom-url");
-        curl.attr('data-url', data);
+        curl.attr('data-url', data.replace(/https?:\/\/multiboards.net/g, ''));
         curl.html('Allez à votre Board ' + data);
         curl.show();
     });
