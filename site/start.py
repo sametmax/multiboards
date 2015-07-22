@@ -54,7 +54,8 @@ def ressources(short_url=None):
 @route('/randomname')
 def get_random_name():
     """ Return a random name for a board """
-    return random_name(separator=u'-')
+    if request.is_ajax:
+        return random_name(separator=u'-')
 
 
 @post('/favicon')

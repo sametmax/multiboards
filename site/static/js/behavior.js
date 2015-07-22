@@ -214,6 +214,14 @@ if($('#build').length){
     return a.hostname;
   }
 
+  /* Get random awesome name for bord suggestion */
+  $.ajax({
+      url: "/randomname"
+    }).done(function(data) {
+      $("#board-name").val(data);
+    });
+
+
 
   function set_colors(domain, id, url) {
     /* get colors */
@@ -325,12 +333,12 @@ if($('#build').length){
     /* Save current position */
     $.post( "/build/save", { 'urls': JSON.stringify(boards), "uuid": $("#board-url").attr('data-uuid') } )
       .done(function( data ) {
-        $("#custom-url").html(data);
+        $("#custom-url").html('Allez à votre Board ' + data);
         $("#custom-url").show();
     });
   }
 
-
+  /* Save board config */
   $( "#board-url" ).bind("keypress", function(e) {
     submit_flux(e);
     save_board();
@@ -341,7 +349,6 @@ if($('#build').length){
     save_board();
   });
 
-  /* Save board config */
   $("#sortable").on("sortupdate", function( event, ui ) {
     save_board();
   });

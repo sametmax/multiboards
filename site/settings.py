@@ -169,30 +169,16 @@ BOTTOM_NEWS = (
 
 
 
-# Radio playlists in pls format only for now
-# make your choice here :
-# http://www.di.fm/ (dance electronic, etc)
-# http://www.shoutcast.com/ (50000+ radios list)
+# Radio playlists 
+# use it from Icecast
+# http://dir.xiph.org/
 RADIOS = (
-    'http://listen.di.fm/public3/vocaltrance.pls',
-    'http://listen.di.fm/public3/trance.pls',
-    'http://listen.di.fm/public3/lounge.pls',
-    'http://listen.di.fm/public3/house.pls',
-    'http://listen.di.fm/public3/eurodance.pls',
-    'http://listen.di.fm/public3/electro.pls',
-    'http://listen.di.fm/public3/goapsy.pls',
-    'http://listen.di.fm/public3/djmixes.pls',
-    'http://listen.di.fm/public3/classictechno.pls',
-    'http://yp.shoutcast.com/sbin/tunein-station.pls?id=221706',
-    'http://yp.shoutcast.com/sbin/tunein-station.pls?id=261838',
-    'http://yp.shoutcast.com/sbin/tunein-station.pls?id=2057543',
-    'http://yp.shoutcast.com/sbin/tunein-station.pls?id=1281016',
-    'http://yp.shoutcast.com/sbin/tunein-station.pls?id=1283896',
-    'http://www.tv-radio.com/station/le_mouv_mp3/le_mouv_mp3-128k.m3u',
-    'http://www.tv-radio.com/station/france_inter_mp3/france_inter_mp3-128k.m3u',
-    'http://www.tv-radio.com/station/fip_mp3/fip_mp3-128k.m3u',
-    'http://cache.yacast.net/V4/bfm/bfm.m3u'
-
+    ('Radio City', 'http://dir.xiph.org/listen/1781191/listen.m3u'),
+    ('Radio Energy','http://dir.xiph.org/listen/1784084/listen.m3u'),
+    ('Radio1 Rock','http://dir.xiph.org/listen/1617079/listen.m3u'),
+    ('Revolution Radio OGG','http://dir.xiph.org/listen/1580721/listen.m3u'),
+    ('Zanevskiy [MAIN] Ch.','http://dir.xiph.org/listen/1770486/listen.m3u'),
+    ('RADIO ENERGY','http://dir.xiph.org/listen/1784084/listen.m3u')
 )
 
 

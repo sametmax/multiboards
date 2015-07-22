@@ -15,11 +15,7 @@
       <input type="text" id="board-url" data-uuid="{{ config_id }}" value="http://lehollandaisvolant.net/rss.php?mode=links">
       <button id="submit-flux" class="btn">Ajouter le flux RSS</button>
       <br>
-      <button id="custom-url" class="hide  btn custom-url save-board bold">jjejejej</button>
-        <!-- 
-        <span class="custom-url">
-        <div id="custom-url" style="display:none" class="white-big"></div>
-        </span> -->
+      <button id="custom-url" class="hide btn custom-url save-board bold"></button>
     </span>
 
   </div> 
