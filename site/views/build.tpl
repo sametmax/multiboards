@@ -15,8 +15,16 @@
       <input type="text" id="board-url" data-uuid="{{ config_id }}" value="http://sametmax.com/feed/">
       <button id="submit-flux" class="btn">Ajouter le flux RSS</button>
       <br>
+<<<<<<< Updated upstream
       <button data-url="" id="custom-url" class="hide btn custom-url save-board bold"></button>
 
+=======
+      <button id="custom-url" class="hide  btn custom-url save-board bold"></button>
+        <!--
+        <span class="custom-url">
+        <div id="custom-url" style="display:none" class="white-big"></div>
+        </span> -->
+>>>>>>> Stashed changes
     </span>
 
   </div>
@@ -33,6 +41,7 @@
         <div class="board-wrapper" id="{{ i }}">
           <p class="center bold slot-message">Emplacement {{ i }} <br><font size=1>(Glisser pour déplacer)</font></p>
         </div>
+        <a class="clear-board-link hidden" href="#" >Vider</a>
       </li>
     %end
     </ul>
