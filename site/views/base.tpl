@@ -44,6 +44,19 @@
             <span class="icon-bar"></span>
           </a>
           <a class="brand" href="/"><strong>Multi</strong>boards<span>.net</span></a>
+
+
+          <div id="player">
+            <span class="btn-play"><i class="icon-white icon-pause hide-it"></i><i class="icon-white icon-play"></i></span>
+            <span class="pl-title">Radios...</span>
+            <span class="btn-list"><i class="icon-white icon-list"></i></span>
+            <ul class="playlist hide-it">
+              %for radio, url in settings.RADIOS:
+                <li audiourl="{{ url }}">{{ radio }}</li>
+              %end
+            </ul>
+          </div>
+
           <div class="nav-collapse">
             <ul class="nav">
 
@@ -69,46 +82,8 @@
 
                 </li>
               %end
-                <li class="divider-vertical"></li>
-                <div id="player">
-                  <span><i class="icon-white icon-play"></i></span>
-                  <span><i class="icon-white icon-pause"></i></span>
-                  <span><i class="icon-white icon-play"></i></span>
-                </div>
-
-                <li class="dropdown">
-
-                <!-- Audio Player -->
-                  <!-- <div class="player">
-                      <div class="pl"></div>
-                      <div class="title"></div>
-                      <div class="artist"></div>
-                      <div class="cover"></div>
-                      <div class="controls">
-                          <div class="play"></div>
-                          <div class="pause"></div>
-                          <div class="rew"></div>
-                          <div class="fwd"></div>
-                      </div>
-                      <div class="volume"></div>
-                      <div class="tracker"></div>
-                  </div>
-                  <ul class="playlist hidden">
-                      <li audiourl="http://stream.radioreklama.bg/city.ogg" cover="cover1.jpg" artist="Artist 1">01.mp3</li>
-                  </ul>
-                   -->
-
-                  <a href="#"
-                        class="dropdown-toggle"
-                        data-toggle="dropdown">
-                      <b class="caret"></b>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <span id="radios"></span>   
-                  </ul>
-                </li>
-                <li class="divider-vertical"></li>
             </ul>
+
 
             <span class="pull-right upper-right"> 
               <div class="nav-collapse">
@@ -147,6 +122,7 @@
   
     <div class="container well" > 
 
+
 	           %include
   
         	<div class="push"></div>
@@ -165,6 +141,7 @@
             </div>
        </span>
       </footer> 
+
 
   </body>
 

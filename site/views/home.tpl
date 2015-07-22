@@ -1,13 +1,12 @@
 <!-- Header welcome & adds -->
 <div class="row-fluid" id="main-board">
-	<div class="span12 thumbnail" id="imgur-thumbs"> 
+	<div class="thumbnail" id="imgur-thumbs"> 
 	</div> 
 </div> 
 
 <!-- main boards list --> 
 <div class="row-fluid">
-  <div class="center"></div>
-  <div class="span12" id="row-boards" data-short-url=""></div>
+  <div class="" id="row-boards" data-short-url=""></div>
 </div> 
 
 

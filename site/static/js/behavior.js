@@ -46,7 +46,7 @@ function loadDatas()
       options.end =  false;
       options.ucfirst = true;
       if(item[2].length){
-        $('<div class="span'+options.span+' thumbnail" id="board-'+i+'"></div>').appendTo('#row-boards');
+        $('<div class=" thumbnail" id="board-'+i+'"></div>').appendTo('#row-boards');
         $('#board-'+i+'').rssfeed(item[2], options, function(){
           /*  title helper  */
           $("#row-boards a").hover(
@@ -75,7 +75,7 @@ function loadDatas()
       options.content = false;
       options.boards_nfo = false;
       options.end =  false;
-      $('<div class="span3" id="'+slugify(item[0])+'"></div>').appendTo('#row-bottom-news');
+      $('<div id="'+slugify(item[0])+'"></div>').appendTo('#row-bottom-news');
       $('#'+slugify(item[0])+'').rssfeed(item[1], options);
     });
   });

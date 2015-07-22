@@ -1,3 +1,4 @@
+
 <!-- Header welcome & adds -->
 <div class="row-fluid">
   <div class="span12 build-header center">
@@ -5,7 +6,7 @@
     <span class="white justify-left medium">
     Créez votre Multiboards,<br><br>
     Vous pouvez créer votre propre multiboards avec les sources RSS qui vous conviennent.<br>
-    Tous les Boards créés sont publics et accessibles depuis la page <a href="/boards"> Boards</a>.<br>
+    Tous les Boards créés sont publics.<br>
     </span>
 
     <span class="form-flux">
