@@ -1,3 +1,4 @@
+
 <!-- Header welcome & adds -->
 <div class="row-fluid">
   <div class="span12 build-header center">
@@ -5,7 +6,7 @@
     <span class="white justify-left medium">
     Créez votre Multiboards,<br><br>
     Vous pouvez créer votre propre multiboards avec les sources RSS qui vous conviennent.<br>
-    Tous les Boards créés sont publics et accessibles depuis la page <a href="/boards"> Boards</a>.<br>
+    Tous les Boards créés sont publics.<br>
     </span>
 
     <span class="form-flux">
@@ -16,23 +17,20 @@
       <button id="submit-flux" class="btn">Ajouter le flux RSS</button>
       <br>
       <button data-url="" id="custom-url" class="hide btn custom-url save-board bold"></button>
-    </span>
-
   </div>
 </div>
 
 <!-- main boards list -->
 <div class="row-fluid">
-  <div class="center"></div>
-  <div class="span12" id="build">
+  <div id="build">
     <ul id="sortable">
     %for i in ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16']:
-      <li class="build-boards span3 thumbnail board-container">
+      <li class="build-boards thumbnail board-container">
         <span class="colors-{{ i }}"></span>
         <div class="board-wrapper" id="{{ i }}">
           <p class="center bold slot-message">Emplacement {{ i }} <br><font size=1>(Glisser pour déplacer)</font></p>
         </div>
-        <a class="clear-board-link hidden" href="#" >Vider</a>
+        <a class="clear-board-link btn hidden" href="#" >Retirer ce Board</a>
       </li>
     %end
     </ul>

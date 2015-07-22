@@ -8,12 +8,12 @@
           content="Multiboards regroupe les derniers posts des meilleurs sites du web.">
 
     <link rel="shortcut icon" href="/static/img/favicon.ico">
-
+   
     <link href="http://fonts.googleapis.com/css?family=Asap" rel="stylesheet" type="text/css">
 
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/css/style.css?2" rel="stylesheet">
-    <link href="/static/css/jquery.zrssfeed.css?23" rel="stylesheet">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet"> 
+    <link href="/static/css/style.css?2" rel="stylesheet"> 
+    <link href="/static/css/jquery.zrssfeed.css?23" rel="stylesheet"> 
     <link href="/static/css/jquery.superbox.css" type="text/css" media="all" rel="stylesheet" />
 
 
@@ -21,9 +21,9 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
-    <script src="/static/js/bootstrap.min.js"></script>
+  
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script> 
+    <script src="/static/js/bootstrap.min.js"></script> 
     <script src="/static/js/jquery.tipsy.js"></script>
     <script src="/static/js/behavior.js?2"></script>
     <script src="/static/js/jquery.zrssfeed.js?233" ></script>
@@ -44,6 +44,19 @@
             <span class="icon-bar"></span>
           </a>
           <a class="brand" href="/"><strong>Multi</strong>boards<span>.net</span></a>
+
+
+          <div id="player">
+            <span class="btn-play"><i class="icon-white icon-pause hide-it"></i><i class="icon-white icon-play"></i></span>
+            <span class="pl-title">Radios...</span>
+            <span class="btn-list"><i class="icon-white icon-list"></i></span>
+            <ul class="playlist hide-it">
+              %for radio, url in settings.RADIOS:
+                <li audiourl="{{ url }}">{{ radio }}</li>
+              %end
+            </ul>
+          </div>
+
           <div class="nav-collapse">
             <ul class="nav">
 
@@ -69,48 +82,10 @@
 
                 </li>
               %end
-                <li class="divider-vertical"></li>
-                <div id="player">
-                  <span><i class="icon-white icon-play"></i></span>
-                  <span><i class="icon-white icon-pause"></i></span>
-                  <span><i class="icon-white icon-play"></i></span>
-                </div>
-
-                <li class="dropdown">
-
-                <!-- Audio Player -->
-                  <!-- <div class="player">
-                      <div class="pl"></div>
-                      <div class="title"></div>
-                      <div class="artist"></div>
-                      <div class="cover"></div>
-                      <div class="controls">
-                          <div class="play"></div>
-                          <div class="pause"></div>
-                          <div class="rew"></div>
-                          <div class="fwd"></div>
-                      </div>
-                      <div class="volume"></div>
-                      <div class="tracker"></div>
-                  </div>
-                  <ul class="playlist hidden">
-                      <li audiourl="http://stream.radioreklama.bg/city.ogg" cover="cover1.jpg" artist="Artist 1">01.mp3</li>
-                  </ul>
-                   -->
-
-                  <a href="#"
-                        class="dropdown-toggle"
-                        data-toggle="dropdown">
-                      <b class="caret"></b>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <span id="radios"></span>
-                  </ul>
-                </li>
-                <li class="divider-vertical"></li>
             </ul>
 
-            <span class="pull-right upper-right">
+
+            <span class="pull-right upper-right"> 
               <div class="nav-collapse">
                 <ul class="nav">
                   <li class="divider-vertical"></li>
@@ -124,6 +99,11 @@
                           <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
+                      <li><a href="#" >Boards name a </a></li>
+                      <li><a href="#" >Boards name b </a></li>
+                      <li><a href="#" >Boards name c </a></li>
+                      <li><a href="#" >Boards name d </a></li>
+                      <li><a href="#" >Boards name e </a></li>
                     </ul>
                   </li>
                   <li class="divider-vertical"></li>
@@ -139,27 +119,29 @@
         </div>
       </div>
     </div>
+  
+    <div class="container well" > 
 
-    <div class="container well" >
 
 	           %include
-
+  
         	<div class="push"></div>
     </div><!--/wrap-content-->
-
-      <footer class="container-fluid footer">
-        <p>
+ 
+      <footer class="container-fluid footer"> 
+        <p> 
            <strong>Powered by <a href="http://sametmax.com">Sam&amp;Max</a> - 2012-20..</strong><br>
-           <span id="bottom-line">2 + 2 = 5.</span>
+           <span id="bottom-line">2 + 2 = 5.</span> 
        </p>
-        <span>
+        <span> 
             <div id="online-users">
               <img src="/static/img/people.png">
               <div class="counter"></div>
               personnes connectées
             </div>
        </span>
-      </footer>
+      </footer> 
+
 
   </body>
 
