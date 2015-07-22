@@ -165,7 +165,8 @@ overflow: hidden;
 }
 
 /* Boards */
-#row-boards {
+#row-boards,
+#sortable {
   margin-left: -5px;
   -webkit-columns: 4 ;
      -moz-columns: 4 ;
@@ -191,8 +192,8 @@ background: transparent;
 }
 
 /* Bottom news */
-.bottom-news {
-margin-left: 0px;
+#row-bottom-news {
+margin-left: -5px;
 margin-top: 10px;
 -webkit-columns: 3 ;
  -moz-columns: 3 ;
@@ -204,10 +205,13 @@ overflow: hidden;
 .bottom-news .rssFeed{
 margin-top: 0px;
 }
-#vdm{
-width: 99%;
+#vdm-bottom-news{
+margin-left: -5px;
+margin-top: 10px;
 }
-
+#vdm{
+	width: 99%;
+}
 
 /* Footer */
 footer {
@@ -365,6 +369,22 @@ margin-top: 40px;
 	margin-left: 0px;
 }
 
+.clear-board-link {
+  margin-top: -12px;
+  float: right;
+  background-color: #d63535;
+  background-image: none !important;
+  color: #fff;
+  text-shadow: none !important;
+}
+.clear-board-link:hover {
+  margin-top: -12px;
+  float: right;
+  background-color: #ea2c2c;
+  background-image: none !important;
+  color: #fff;
+  text-shadow: none !important;
+}
 
 /* Player */
 

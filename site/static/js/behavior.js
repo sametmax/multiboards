@@ -325,7 +325,7 @@ if($('#build').length){
       .done(function( data ) {
         var curl = $("#custom-url");
         curl.attr('data-url', data.replace(/https?:\/\/multiboards.net/g, ''));
-        curl.html('Allez à votre Board ' + data);
+        curl.html('Allez à votre MultiBoards ' + data);
         curl.show();
     });
   }
