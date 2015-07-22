@@ -103,7 +103,7 @@ function loadDatas()
     var imgs = '';
     $('#imgur-thumbs').html('');
     $.each(data, function(i, items){
-      for (var i = 0; i < 17; i++) { 
+      for (var i = 0; i < 17; i++) {
         try {
           var tr = items[i]['hash'];
         imgs=imgs+'<span><a href="http://i.imgur.com/'+items[i]['hash']+items[i]['ext']+'" rel="superbox[gallery][my_gallery]" original-title="'+items[i]['title']+'"><img src="http://i.imgur.com/'+items[i]['hash']+items[i]['ext']+'" width="60" height="60" original-title="'+items[i]['title']+'"></a></span>';
@@ -114,12 +114,12 @@ function loadDatas()
     });
     $(imgs).appendTo('#imgur-thumbs');
   })
-  .success(function() { 
+  .success(function() {
     /* superbox */
     $.superbox();
 
     /*  tooltips for sharing button */
-    $('#imgur-thumbs a').tipsy({fade: true, gravity: 'n'}); 
+    $('#imgur-thumbs a').tipsy({fade: true, gravity: 'n'});
 
   });
 
@@ -205,14 +205,15 @@ if($('#row-boards').length){
 
 }
 
-/* Build custom boards */
-if($('#build').length){
-
-  function url_domain(data) {
+function url_domain(data) {
     var a = document.createElement('a');
     a.href = data;
     return a.hostname;
-  }
+}
+
+
+/* Build custom boards */
+if($('#build').length){
 
   /* Get random awesome name for bord suggestion */
   $.ajax({
@@ -223,44 +224,72 @@ if($('#build').length){
 
 
 
-  function set_colors(domain, id, url) {
+  function set_colors(id, url) {
     /* get colors */
-    $.ajax({
-      url: "/build/colors/" + domain,
-      context: document.body
-    }).done(function(data) {
-      boards_colors[domain] = data;
-      if(data != 'error'){
 
-        bc = eval(boards_colors[domain]);
 
-        /* Add some sweet colors for odd & even */
-        bc.push('eee');
-        bc.push('fff');
+    var domain = url_domain(url);
+    console.log('set color')
+    $.post('/favicon', {url: url}).done(function(data){
 
-        /* Define board colors */
-        options.header_bgcolor = bc[0];
-        options.odd = bc[1];
-        options.even = bc[2];
-        options.setted_colors = true;
+        // TODO: find if we can load external images from
+        // here instead of from the serveur
+        var image = new Image;
+        image.src = data;
+        image.onload = function() {
+            var colorThief = new ColorThief();
+            var bc = colorThief.getPalette(image);
 
-        /* add colors picker to board */
-        // var colors_list = '';
-        // $(bc).each(function(index, value){
-        //   colors_list += '<li style="background-color:' + value + ';"></li>';
-        // });
-        // $(".colors-" + id).html('<div class="board-options"><ul>' + colors_list +  '</ul></div>');
+            function componentToHex(c) {
+                var hex = c.toString(16);
+                return hex.length == 1 ? "0" + hex : hex;
+            }
 
-        refresh_board(id, url);
-      }
+            function rgbToHex(array) {
+                return componentToHex(array[0]) + componentToHex(array[1]) + componentToHex(array[2]);
+            }
+
+            function increase_brightness(hex, percent){
+                // strip the leading # if it's there
+                hex = hex.replace(/^\s*#|\s*$/g, '');
+
+                // convert 3 char codes --> 6, e.g. `E0F` --> `EE00FF`
+                if(hex.length == 3){
+                    hex = hex.replace(/(.)/g, '$1$1');
+                }
+
+                var r = parseInt(hex.substr(0, 2), 16),
+                    g = parseInt(hex.substr(2, 2), 16),
+                    b = parseInt(hex.substr(4, 2), 16);
+
+                return '' +
+                   ((0|(1<<8) + r + (256 - r) * percent / 100).toString(16)).substr(1) +
+                   ((0|(1<<8) + g + (256 - g) * percent / 100).toString(16)).substr(1) +
+                   ((0|(1<<8) + b + (256 - b) * percent / 100).toString(16)).substr(1);
+            }
+
+            /* Define board colors */
+            options.header_bgcolor = rgbToHex(bc[0]);
+            options.odd = increase_brightness(rgbToHex(bc[1]), 90);
+            options.even = increase_brightness(rgbToHex(bc[2]), 90);
+            options.setted_colors = true;
+
+            boards_colors[domain] = [options.header_bgcolor, options.odd, options.even];
+
+            refresh_board(id, url);
+            return data
+        }
+    }).fail(function(data){
+        console.log('Fail to set color');
     });
   }
 
   function refresh_board(id, url) {
 
     var domain = url_domain(url);
+
     var current = $("#" + id);
-  
+
     if(!options.setted_colors){
       options.header_bgcolor = "aaa";
       options.odd = "fff";
@@ -282,7 +311,7 @@ if($('#build').length){
 
     current.rssfeed(url, options, function(e){
       if(options.setted_colors === false){
-        set_colors(domain, id, url);
+        set_colors(id, url);
       }else{
         options.setted_colors = false;
       }
