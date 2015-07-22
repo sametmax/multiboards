@@ -225,13 +225,20 @@ if($('#build').length){
     $.post('/favicon', {url: url}).done(function(data){
 
         // TODO: find if we can load external images from
-        // here instead of from the serveur
+        // here instead of from the serveur, convert it to bytes
+        // then create the image object with it.
+
+        // load an image with the base64 data of the favicon
         var image = new Image;
         image.src = data;
         image.onload = function() {
+
+            // ask ColorThief for the main favicon colors
             var colorThief = new ColorThief();
             var bc = colorThief.getPalette(image);
 
+            // some tools to convert the RGB array into
+            // rgb hex string
             function componentToHex(c) {
                 var hex = c.toString(16);
                 return hex.length == 1 ? "0" + hex : hex;
