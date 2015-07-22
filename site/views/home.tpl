@@ -1,5 +1,5 @@
 <!-- Header welcome & adds -->
-<div class="row-fluid">
+<div class="row-fluid" id="main-board">
 	<div class="span12 thumbnail" id="imgur-thumbs"> 
 	</div> 
 </div> 

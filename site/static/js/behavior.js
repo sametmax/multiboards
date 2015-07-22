@@ -141,67 +141,19 @@ if($('#row-boards').length){
   /* load imgur, boards, bottom lines */
   loadDatas();
 
-  /* Load Radio */
-  var $player = $('#player');
-
-  if ($player.length) {
-
-
-    /* Populate radio dropdown */
-    $.getJSON("/json/radios", function(data) {
-      $.each(data, function(i,item){
-        if(item.title.length > 50) item.title = item.title.substring(0,47)+'...';
-        $('<li><a href="'+item.url+'">'+item.title+'</a></li>').appendTo("#radios");
-      });
+  /* Populate radio dropdown */
+  $.getJSON("/json/radios", function(data) {
+    $.each(data, function(i,item){
+      $('<li><a href="'+item.url+'">'+item.name+'</a></li>').appendTo("#radios");
     });
+  });
 
 
-    /* Click a radio link */
-    $('.dropdown-menu li a').bind("click", function(e){
-      e.preventDefault();
-      var $this = $(this);
-
-      try {var this_id = $this.attr('id');}
-      catch(err){var this_id = '';}
-
-      if ( this_id == 'volume-down' ){
-        var volume = jwplayer().getVolume();
-        if (volume < 10){volume = 10;}
-        jwplayer().setVolume(volume-10);
-      } else if (this_id == 'volume-up'){
-        var volume = jwplayer().getVolume();
-        if (volume > 90){volume = 90;}
-        jwplayer().setVolume(volume+10);
-      } else if (this_id == 'volume-off'){
-        jwplayer().stop();
-      } else {
-
-        /* Load audio player */
-        jwplayer("player").setup({
-            flashplayer: "/static/player/player.swf",
-            height: '24px',
-            file: $(this).attr('href'),
-            width: '324px',
-            allowfullscreen: 'false',
-            controlbar: 'bottom',
-            type: 'sound',
-            autostart: true
-        });
-
-        /* if radio was stopped restart it*/
-        var volume = jwplayer().getVolume();
-        if (!volume){jwplayer().setVolume(10);}
-
-        /* set title */
-        $('#radio-title').html($this.html());
-
-
-      }
-
-
-    });
-
-  }
+  /* Click a radio link */
+  $('.dropdown-menu li a').bind("click", function(e){
+    e.preventDefault();
+    var $this = $(this);
+  });
 
 }
 
@@ -215,12 +167,13 @@ function url_domain(data) {
 /* Build custom boards */
 if($('#build').length){
 
-  /* Get random awesome name for bord suggestion */
+  /* Get random awesome name suggestion for custom board  */
   $.ajax({
       url: "/randomname"
     }).done(function(data) {
       $("#board-name").val(data);
     });
+
 
 
 
@@ -233,7 +186,7 @@ if($('#build').length){
     $.post('/favicon', {url: url}).done(function(data){
 
         // TODO: find if we can load external images from
-        // here instead of from the serveur
+        // here instead of from the server
         var image = new Image;
         image.src = data;
         image.onload = function() {
@@ -360,10 +313,12 @@ if($('#build').length){
     });
 
     /* Save current position */
-    $.post( "/build/save", { 'urls': JSON.stringify(boards), "uuid": $("#board-url").attr('data-uuid') } )
+    $.post( "/build/save", { 'name': $('#board-name').val(), 'urls': JSON.stringify(boards), 'uuid' : $("#board-url").attr('data-uuid') } )
       .done(function( data ) {
-        $("#custom-url").html('Allez à votre Board ' + data);
-        $("#custom-url").show();
+        var curl = $("#custom-url");
+        curl.attr('data-url', data);
+        curl.html('Allez à votre Board ' + data);
+        curl.show();
     });
   }
 
@@ -380,6 +335,11 @@ if($('#build').length){
 
   $("#sortable").on("sortupdate", function( event, ui ) {
     save_board();
+  });
+
+  /* Button Custom board */
+  $("#custom-url").click( function(e) {
+    window.open($(this).attr('data-url'), '_blank');
   });
 
 

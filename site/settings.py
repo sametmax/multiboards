@@ -173,12 +173,12 @@ BOTTOM_NEWS = (
 # use it from Icecast
 # http://dir.xiph.org/
 RADIOS = (
-    ('Radio City', 'http://dir.xiph.org/listen/1781191/listen.m3u'),
-    ('Radio Energy','http://dir.xiph.org/listen/1784084/listen.m3u'),
-    ('Radio1 Rock','http://dir.xiph.org/listen/1617079/listen.m3u'),
-    ('Revolution Radio OGG','http://dir.xiph.org/listen/1580721/listen.m3u'),
-    ('Zanevskiy [MAIN] Ch.','http://dir.xiph.org/listen/1770486/listen.m3u'),
-    ('RADIO ENERGY','http://dir.xiph.org/listen/1784084/listen.m3u')
+    ('Radio City', 'http://stream.radioreklama.bg/city.ogg'),
+    ('Radio Energy','http://stream.radioreklama.bg/nrj.ogg'),
+    ('Radio1 Rock','http://stream.radioreklama.bg/radio1rock.ogg'),
+    ('Revolution Radio OGG','http://revolutionradio.ru/live.ogg'),
+    ('Zanevskiy [MAIN] Ch.','http://178.252.126.65:8000/zanevka.ogg'),
+    ('RADIO ENERGY','http://stream.radioreklama.bg/nrj.ogg')
 )
 
 

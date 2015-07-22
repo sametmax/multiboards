@@ -125,7 +125,7 @@ def random_name(use_cache=True, separator=' '):
             nouns = open(nouns_file).readlines()
             adjectives = open(adjectives_file).readlines()
 
-    noun = random.choice(nouns).strip()
+    noun = random.choice(nouns).strip().title()
     adjective = random.choice(adjectives).strip()
     return "%s%s%s" % (noun, separator, adjective)
 
