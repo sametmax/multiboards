@@ -66,7 +66,7 @@ def get_favicon_url(url, retry=3, try_home_page=True):
         html = html.decode('ascii', errors='ignore')
         pattern = r"""
                                href=(?:"|')\s*
-                               (?P<favicon>[^\s'"]*favicon.ico)
+                               (?P<favicon>[^\s'"]*favicon.[a-zA-Z]{3,4})
                                \s*(?:"|')
                           """
 
