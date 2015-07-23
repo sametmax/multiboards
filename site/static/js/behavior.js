@@ -92,9 +92,9 @@ function loadDatas()
   options.content = true;
   options.boards_nfo = false;
   options.end =  false;
-  $('<div class="span3" id="dtc"></div>').appendTo('#dtc-bottom-news');
+  $('<div id="dtc"></div>').appendTo('#dtc-bottom-news');
   $('#dtc').rssfeed("http://danstonchat.com/items.xml", options);
-  $('<div class="span3" id="vdm"></div>').appendTo('#vdm-bottom-news');
+  $('<div id="vdm"></div>').appendTo('#vdm-bottom-news');
   $('#vdm').rssfeed("http://feeds.feedburner.com/viedemerde", options);
 
 

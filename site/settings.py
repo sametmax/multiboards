@@ -177,8 +177,7 @@ RADIOS = (
     ('Radio Energy','http://stream.radioreklama.bg/nrj.ogg'),
     ('Radio1 Rock','http://stream.radioreklama.bg/radio1rock.ogg'),
     ('Revolution Radio OGG','http://revolutionradio.ru/live.ogg'),
-    ('Zanevskiy [MAIN] Ch.','http://178.252.126.65:8000/zanevka.ogg'),
-    ('RADIO ENERGY','http://stream.radioreklama.bg/nrj.ogg')
+    ('Zanevskiy [MAIN] Ch.','http://178.252.126.65:8000/zanevka.ogg')
 )
 
 
@@ -200,5 +199,25 @@ BOTTOM_LINE = (
     "Quand tu prends confiance en la confiance, tu deviens confiant",
     "Noël au scanner, Paques au cimetière",
     "Vous n'êtes génétiquement pas aux normes.",
+    "Les femmes vivent plus longtemps que les hommes surtout quand elles sont veuves.",
+    "La vraie paresse, c'est de se lever à 6 heures du matin pour avoir plus longtemps à ne rien faire.",
+    "Un bon truc pour paraître dix ans plus jeune, c'est de vieillir de dix ans quand tu dis ton âge.",
+    "Le ciment est composé de protons et de neutrons.",
+    "Quand j'étais jeune j'étais très con. Je suis resté très jeune.",
+    "Il est con comme un iceberg, trois fois plus con que ce qu'on voit !",
+    "Le plus grand intellectuel du monde, même pour les courses il se fait une liste.",
+    "Sur les vieilles images en noir et blanc, on voit mieux la tristesse.",
+    "Un pêcheur qui se fait incinérer c'est pas tellement reconnaissant pour les asticots.",
+    "La vie du bouton, elle tient qu'à un fil.",
+    "La machine remplacera jamais l'homme, elle est pas assez con.",
+    "L'argent que l'alcool rapporte à l'Etat, c'est énorme ; moi cette année, rien qu'en picolant, j'ai payé l'impôt sur la fortune !",
+    "Y faudrait un distributeur d'apéros dans le mur pour quand ça ferme, pareil que les banques!",
+    "Un SDF, tu l'assignes à résidence, il est content, le mec.",
+    "C'est pas la peine d'être sans domicile fixe si c'est pour rester assis au même endroit !",
+    "- Tu bois un coup ?<br>- L'autre ! Y demande à une bille si elle roule !",
+    "Quarante pour cent des accidents de voiture sont provoqués par l'alcool, ça veut dire que soixante pour cent des accidents sont provoqués par des buveurs d'eau... c'est énorme !",
+    "Pour un gosse, on te demande rien, alors que pour une bagnole, faut un permis !",
+    "J'ai joué la date de naissance de ma femme, celle de sa mère, celle de ma fille, j'ai pas eu un seul numéro ! pas un ! c'est vraiment une famille de cons !",
+    "Depuis qu'on trie les déchets, j'ai les mêmes déchets, sauf que j'ai quatorze poubelles."
 
 )

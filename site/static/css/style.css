@@ -48,6 +48,11 @@ text-align: left;
 }
 
 
+.navbar .brand a:hover {
+text-decoration: none;
+color: #4EB8E0 !important;
+
+}
 .navbar .brand {
 	font-size: 32px !important;
 	padding: 4px 55px 3px !important;
@@ -167,10 +172,13 @@ overflow: hidden;
 /* Boards */
 #row-boards,
 #sortable {
-  margin-left: -5px;
-  -webkit-columns: 4 ;
-     -moz-columns: 4 ;
-          columns: 4 ;
+margin-left: 0px;
+-webkit-columns: 4;
+-moz-columns: 4;
+columns: 4;
+-webkit-column-gap: 5px; /* Chrome, Safari, Opera */
+-moz-column-gap: 5px; /* Firefox */
+column-gap: 5px;
 
 }
 .boards-nfo{
@@ -193,11 +201,11 @@ background: transparent;
 
 /* Bottom news */
 #row-bottom-news {
-margin-left: -5px;
+margin-left: 0px;
 margin-top: 10px;
--webkit-columns: 3 ;
- -moz-columns: 3 ;
-      columns: 3 ;
+-webkit-columns: 3;
+-moz-columns: 3;
+columns: 3;
 }
 .bottom-news div{
 overflow: hidden;
@@ -206,12 +214,9 @@ overflow: hidden;
 margin-top: 0px;
 }
 #vdm-bottom-news{
-margin-left: -5px;
+margin-left: 0px;
 margin-top: 10px;
-}
-#vdm{
-	width: 99%;
-}
+} 
 
 /* Footer */
 footer {
@@ -223,8 +228,9 @@ footer {
 }
 
 footer p{
-    float: left;
-    margin-top: 20px;
+float: left;
+margin-top: 20px;
+margin: 4px;
 
 }
 footer span{
@@ -250,7 +256,7 @@ padding-top: 7px;
 }
 
 #bottom-line{
-	width:300px;
+	width:100%;
 }
 
 .wrapper {
@@ -337,9 +343,9 @@ margin-top: 40px;
   cursor: move;
 }
 #board-url{
-	width: 500px;
-	font-size: 18px;
-	height: 20px;
+width: 500px;
+font-size: 18px;
+height: 20px;
 }
 
 .preview-board {
@@ -347,9 +353,9 @@ margin-top: 40px;
 }
  
 .build-boards {
-	border: 1px solid #999;
-	height: 230px;
-	margin-bottom: 3px;
+border: 1px solid #999;
+height: 230px;
+margin-bottom: 3px;
 }
 
 .build-boards p{
@@ -398,7 +404,7 @@ margin-top: 40px;
 #player {
   position: relative;
   float: left;
-  top: 12px;
+  top: 14px;
   border: 1px solid #333;
 }
 .pl-title {

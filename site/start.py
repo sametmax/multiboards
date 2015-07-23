@@ -199,7 +199,7 @@ def ressources(choice=None):
         return urllib.urlopen(_settings.IMGUR).read()
 
     elif choice == 'bottomline':
-        return _settings.BOTTOM_LINE[random.randrange(0, 5)]
+        return _settings.BOTTOM_LINE[random.randrange(0, len(_settings.BOTTOM_LINE))]
 
 
 @clize.clize

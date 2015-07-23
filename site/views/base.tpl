@@ -6,16 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
           content="Multiboards regroupe les derniers posts des meilleurs sites du web.">
-
     <link rel="shortcut icon" href="/static/img/favicon.ico">
-   
     <link href="http://fonts.googleapis.com/css?family=Asap" rel="stylesheet" type="text/css">
-
     <link href="/static/css/bootstrap.min.css" rel="stylesheet"> 
+    <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="/static/css/style.css?2" rel="stylesheet"> 
     <link href="/static/css/jquery.zrssfeed.css?23" rel="stylesheet"> 
     <link href="/static/css/jquery.superbox.css" type="text/css" media="all" rel="stylesheet" />
-
 
     <!-- Le HTML5 shim, for IE7-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -43,10 +40,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="/"><strong>Multi</strong>boards<span>.net</span></a>
-
-
-          <div id="player">
+          <div class="brand hidden-phone">
+            <a href="/"><strong>Multi</strong>boards<span>.net</span></a>
+          </div>
+          <div id="player" class="hidden-phone">
             <span class="btn-play"><i class="icon-white icon-pause hide-it"></i><i class="icon-white icon-play"></i></span>
             <span class="pl-title">Radios...</span>
             <span class="btn-list"><i class="icon-white icon-list"></i></span>
@@ -121,16 +118,13 @@
     </div>
   
     <div class="container well" > 
-
-
 	           %include
-  
         	<div class="push"></div>
     </div><!--/wrap-content-->
  
       <footer class="container-fluid footer"> 
         <p> 
-           <strong>Powered by <a href="http://sametmax.com">Sam&amp;Max</a> - 2012-20..</strong><br>
+           <strong>Powered by <a href="http://sametmax.com">Sam&amp;Max</a> - 2012-20..</strong>
            <span id="bottom-line">2 + 2 = 5.</span> 
        </p>
         <span> 
