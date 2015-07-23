@@ -127,8 +127,26 @@ function loadDatas()
   changeBottomLine();
 
   /* Get online users */
-  $.getJSON("/online", function(data) {
-      $("#online-users .counter").html(data['online_users']);
+  var path = window.location.pathname ;
+  if (path.indexOf('/b/') !== -1){
+    var board_id = path.replace('/b/', '')
+    $.post("/online/" + board_id, function(data) {
+        $("#online-users .counter").html(data);
+    });
+  } else {
+    // we are on the main board or any other page
+    $.post("/online/", function(data) {
+        $("#online-users .counter").html(data);
+    });
+  }
+
+  // populate active boards list
+  $.get("/boards/best", function(data) {
+    console.log(data)
+      $.each(data['boards'], function(i, elem){
+          $("<li><a href='/b/" + elem + "' >" + elem + "</a></li>").appendTo('.dropdown-menu');
+      });
+      $("#online-users .counter").html(data);
   });
 
   /* refresh every 10 mins */
