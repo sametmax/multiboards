@@ -150,9 +150,8 @@ SOURCES = {
           'http://jobs.humancoders.com/jobs.rss',
           '2D455E',
           'FFFFFF',
-          'F7F7F7']
-
-
+          'F7F7F7'],
+     99 :['multiboards']
 }
 
 

@@ -6,7 +6,7 @@
 
 <!-- main boards list --> 
 <div class="row-fluid">
-  <div class="" id="row-boards" data-short-url=""></div>
+  <div class="" id="row-boards" data-short-url="{{ settings.short_url }}"></div>
 </div> 
 
 
@@ -16,9 +16,6 @@
 
 <div class="row bottom-news thumbnail" id="vdm-bottom-news"> 
 </div>
-
-
-
 
 
 %rebase base settings=settings

@@ -109,7 +109,7 @@
 
               <span class="about ">
                 "Le meilleur du web"<br>
-                <span>sur une seule page...</span>
+                <span id="subtitle">sur une seule page...</span>
               </span>
             </span>
           </div><!--/.nav-collapse -->

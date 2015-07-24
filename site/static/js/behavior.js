@@ -34,8 +34,20 @@ function loadDatas()
 {
   /* Main boards list generator */
   $.getJSON("/json/sources?short_url=" + $('#row-boards').attr('data-short-url'), function(data) {
+    
+    /* Get board name */
+    if (data[99] != 'multiboards' ){
+      $('#subtitle').html(data[99]);
+    }
+
     $('#row-boards').html('');
     $.each(data, function(i,item){
+
+      // stop after 16 boards
+      if(i>15){
+        return false;
+      }
+
       options.title_length = 40;
       options.limit= 10;
       options.header_bgcolor = item[3];
@@ -248,7 +260,8 @@ if($('#build').length){
             boards_colors[domain] = [options.header_bgcolor, options.odd, options.even];
 
             refresh_board(id, url);
-            return data
+
+            //return data
         }
     }).fail(function(data){
         console.log('Fail to set color');
@@ -284,9 +297,9 @@ if($('#build').length){
       if(options.setted_colors === false){
         set_colors(id, url);
       }else{
+        save_board();
         options.setted_colors = false;
       }
-
     });
 
   }
@@ -317,7 +330,7 @@ if($('#build').length){
             $(this).addClass('hidden');
             current.find(".board-wrapper").removeData('url');
             current.find('.board-wrapper').html('').append(message);
-            save_board()
+            save_board();
           });
         }
       });
@@ -325,17 +338,38 @@ if($('#build').length){
 
   }
 
+  /* Return Hex color background */ 
+  function getBgColorHex(elem){
+    var color = elem.css('background-color')
+    var hex;
+    if(color.indexOf('#')>-1){
+        //for IE
+        hex = color;
+    } else {
+        var rgb = color.match(/\d+/g);
+        hex = '#'+ ('0' + parseInt(rgb[0], 10).toString(16)).slice(-2) + ('0' + parseInt(rgb[1], 10).toString(16)).slice(-2) + ('0' + parseInt(rgb[2], 10).toString(16)).slice(-2);
+    }
+    return hex;
+  }
+
   function save_board(){
 
     /* get array */
     var boards = [];
     $(".board-container").each(function(){
-        boards.push(  $(this).index() + ";" +
-                      $(this).find($(".board-wrapper")).attr('data-url') + ";" +
-                      'aaa' + ";" +
-                      'fff' + ";" +
-                      'eee'
+      var b = $(this);
+      var burl = b.find($(".board-wrapper")).attr('data-url');
+
+      // if board exist push datas to array
+      if(burl){
+        boards.push(  'index:' + b.index() + ";" +
+                      'url:' + b.find($(".board-wrapper")).attr('data-url') + ";" +
+                      'header:' + getBgColorHex(b.find($(".rssHeader"))).slice(1) + ";" +
+                      'odd:' + getBgColorHex($(b.find($(".rssRow"))[0])).slice(1) + ";" +
+                      'even:' + getBgColorHex($(b.find($(".rssRow"))[1])).slice(1)
                    );
+      }
+
     });
 
     /* Save current position */
@@ -351,12 +385,12 @@ if($('#build').length){
   /* Save board config */
   $( "#board-url" ).bind("keypress", function(e) {
     submit_flux(e);
-    save_board();
+    //save_board();
   });
 
   $( "#submit-flux" ).bind("click", function(e) {
     submit_flux(e);
-    save_board();
+    //save_board();
   });
 
   $("#sortable").on("sortupdate", function( event, ui ) {

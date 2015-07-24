@@ -48,8 +48,9 @@ def ressources(short_url=None):
     """
         Return custom board
     """
-    settings = _settings
-    return locals()
+    settings = _settings.__dict__
+    settings.update({'short_url': short_url})
+    return dict(settings=_settings)
 
 
 @route('/randomname')
@@ -99,25 +100,32 @@ def save():
 
     if uid and request.is_ajax:
         try:
-            boards = Custom.get(Custom.uuid == uid)
-            boards.name = name
-            boards.infos = json.dumps(infos)
-            boards.save()
-            return prefix_url + boards.short
+            multiboards = Custom.get(Custom.uuid == uid)
+            multiboards.name = name
+            multiboards.infos = json.dumps(infos)
+            multiboards.save()
+            return prefix_url + multiboards.short
         except Exception:
-            boards = Custom.create(name=name,
-                                   uuid=uid,
-                                   infos=json.dumps(infos),
-                                   short='')
-            url = url_encoding.encode_url(boards.id)
-            boards.short = url
-            boards.save()
+            multiboards = Custom.create(name=name,
+                                        uuid=uid,
+                                        infos=json.dumps(infos),
+                                        short='')
+
+            # Create short url for custom multiboards
+            url = url_encoding.encode_url(multiboards.id)
+            multiboards.short = url
+
+            # Save the custom multiboards
+            multiboards.save()
+
+            # Return short url of custom multiboards
             return prefix_url + url
 
 
 @route('/static/<filename:path>')
 def server_static(filename):
     return static_file(filename, root=_settings.STATIC_FILES_ROOT)
+
 
 @route('/favicon.ico')
 def server_static():
@@ -168,9 +176,9 @@ def online(board="rootboard"):
 @route('/boards/best')
 def active_boards():
     """ Return the most active boards"""
-    boards = con.zrangebyscore('boards:active', 0, float('+inf'))
-    boards = [b for b in boards if b != 'rootboard']
-    return {'boards': boards}
+    # boards = con.zrangebyscore('boards:active', 0, float('+inf'))
+    # boards = [b for b in boards if b != 'rootboard']
+    # return {'boards': boards}
 
 
 @route('/json/:choice')
@@ -188,6 +196,8 @@ def ressources(choice=None):
 
     if choice == 'radios':
 
+        # pick up radio list from setting
+        # for now we are only playing ogg radios format
         radios = []
         for playlist in _settings.RADIOS:
             radios.append({'name': playlist[0], 'url': playlist[1]})
@@ -196,24 +206,35 @@ def ressources(choice=None):
 
     elif choice == 'sources':
 
+        #import ipdb;ipdb.set_trace()
         # if we have a custom board
         if request.query['short_url']:
             try:
-                boards = Custom.get(Custom.id == url_encoding.decode_url(request.query['short_url']))
+                # init sources
+                _settings.SOURCES = {}
+
+                # get board infos
+                short_url = unicode(request.query['short_url'], 'utf-8')
+                boards = Custom.get(Custom.id == url_encoding.decode_url(short_url))
+                _settings.SOURCES[99] = boards.name
                 boards = json.loads(boards.infos)
 
                 # Replace default boards by custom
-                for board in eval(boards):
-                    bb = board.split(';')
+                # ["index:0;url:http://sametmax.com/feed/;header:#ac2626;odd:#ececec;even:#f2f2f2"]
+                for i in range(16):
                     try:
-                        _settings.SOURCES[int(bb[0])] = ['', '', bb[1], bb[2], bb[3], bb[4]]
-                    except Exception:
+                        bb = eval(boards)[i].split(';')
+                        _settings.SOURCES[i] = ['', '', bb[1].split(':')[1] + ':' + bb[1].split(':')[2], bb[2].split(':')[1], bb[3].split(':')[1], bb[4].split(':')[1]]
+                    except IndexError:
+                        # plug the butt hole !
+                        _settings.SOURCES[i] = ['', '','http://sametmax.com/feed/', 'ac2626','ececec', 'f2f2f2','', '','', '',]
                         pass
-            except:
-                pass
+
+            except Exception as e:
+                print e
+                raise 'Et merde!'
 
         return json.dumps(_settings.SOURCES)
-
 
     elif choice == 'news':
         return json.dumps(_settings.BOTTOM_NEWS)

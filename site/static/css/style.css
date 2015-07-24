@@ -173,12 +173,12 @@ overflow: hidden;
 #row-boards,
 #sortable {
 margin-left: 0px;
--webkit-columns: 4;
--moz-columns: 4;
-columns: 4;
+-webkit-columns: 4 20em;
+-moz-columns: 4 20em;
+columns: 4 20em;
 -webkit-column-gap: 5px; /* Chrome, Safari, Opera */
 -moz-column-gap: 5px; /* Firefox */
-column-gap: 5px;
+column-gap: 5px; 
 
 }
 .boards-nfo{

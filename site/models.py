@@ -13,10 +13,10 @@ db = SqliteDatabase('multiboards.db')
 
 
 class Custom(Model):
-    
+
     # Board name
     name = CharField()
-    
+
     # Board array of sites urls & dominants colors
     infos = CharField()
 
@@ -27,10 +27,8 @@ class Custom(Model):
     uuid = CharField()
 
     class Meta:
-        database = db # this model uses the multiboards database
-
-
-
+        # this model uses the multiboards database
+        database = db
 
 # Create db if not exist
 try:
