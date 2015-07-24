@@ -39,6 +39,8 @@ url_encoding = short_url.UrlEncoder('กขฃคฅฆงจฉชซฌญฎ�
 @route('/')
 @view('home')
 def index():
+    settings = _settings.__dict__
+    settings.update({'short_url': ''})
     return dict(settings=_settings)
 
 
@@ -207,8 +209,13 @@ def ressources(choice=None):
     elif choice == 'sources':
 
         #import ipdb;ipdb.set_trace()
+        try:
+            surl = request.query['short_url']
+        except Exception, e:
+            raise 'no short url'
+
         # if we have a custom board
-        if request.query['short_url']:
+        if surl != '':
             try:
                 # init sources
                 _settings.SOURCES = {}
