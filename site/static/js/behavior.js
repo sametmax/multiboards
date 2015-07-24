@@ -34,7 +34,7 @@ function loadDatas()
 {
   /* Main boards list generator */
   $.getJSON("/json/sources?short_url=" + $('#row-boards').attr('data-short-url'), function(data) {
-    
+
     /* Get board name */
     if (data[99] != 'multiboards' ){
       $('#subtitle').html(data[99]);
@@ -338,7 +338,7 @@ if($('#build').length){
 
   }
 
-  /* Return Hex color background */ 
+  /* Return Hex color background */
   function getBgColorHex(elem){
     var color = elem.css('background-color')
     var hex;

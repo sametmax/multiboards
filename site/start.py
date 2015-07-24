@@ -178,9 +178,9 @@ def online(board="rootboard"):
 @route('/boards/best')
 def active_boards():
     """ Return the most active boards"""
-    # boards = con.zrangebyscore('boards:active', 0, float('+inf'))
-    # boards = [b for b in boards if b != 'rootboard']
-    # return {'boards': boards}
+    boards = con.zrangebyscore('boards:active', 0, float('+inf'))
+    boards = [b for b in boards if b.decode('utf8') != 'rootboard']
+    return {'boards': boards}
 
 
 @route('/json/:choice')
