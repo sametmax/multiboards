@@ -8,19 +8,19 @@
           content="Multiboards regroupe les derniers posts des meilleurs sites du web.">
     <link rel="shortcut icon" href="/static/img/favicon.ico">
     <link href="http://fonts.googleapis.com/css?family=Asap" rel="stylesheet" type="text/css">
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet"> 
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="/static/css/style.css?2" rel="stylesheet"> 
-    <link href="/static/css/jquery.zrssfeed.css?23" rel="stylesheet"> 
+    <link href="/static/css/style.css?2" rel="stylesheet">
+    <link href="/static/css/jquery.zrssfeed.css?23" rel="stylesheet">
     <link href="/static/css/jquery.superbox.css" type="text/css" media="all" rel="stylesheet" />
 
     <!-- Le HTML5 shim, for IE7-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-  
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script> 
-    <script src="/static/js/bootstrap.min.js"></script> 
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
     <script src="/static/js/jquery.tipsy.js"></script>
     <script src="/static/js/behavior.js?2"></script>
     <script src="/static/js/jquery.zrssfeed.js?233" ></script>
@@ -82,7 +82,7 @@
             </ul>
 
 
-            <span class="pull-right upper-right"> 
+            <span class="pull-right upper-right">
               <div class="nav-collapse">
                 <ul class="nav">
                   <li class="divider-vertical"></li>
@@ -96,11 +96,6 @@
                           <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                      <li><a href="#" >Boards name a </a></li>
-                      <li><a href="#" >Boards name b </a></li>
-                      <li><a href="#" >Boards name c </a></li>
-                      <li><a href="#" >Boards name d </a></li>
-                      <li><a href="#" >Boards name e </a></li>
                     </ul>
                   </li>
                   <li class="divider-vertical"></li>
@@ -116,25 +111,25 @@
         </div>
       </div>
     </div>
-  
-    <div class="container well" > 
+
+    <div class="container well" >
 	           %include
         	<div class="push"></div>
     </div><!--/wrap-content-->
- 
-      <footer class="container-fluid footer"> 
-        <p> 
+
+      <footer class="container-fluid footer">
+        <p>
            <strong>Powered by <a href="http://sametmax.com">Sam&amp;Max</a> - 2012-20..</strong>
-           <span id="bottom-line">2 + 2 = 5.</span> 
+           <span id="bottom-line">2 + 2 = 5.</span>
        </p>
-        <span> 
+        <span>
             <div id="online-users">
               <img src="/static/img/people.png">
               <div class="counter"></div>
               personnes connectées
             </div>
        </span>
-      </footer> 
+      </footer>
 
 
   </body>
