@@ -152,7 +152,7 @@ def online(board="rootboard"):
 
     # get timestamps that we will use as scores for the redis sorted sets
     now = (datetime.utcnow() - datetime(1970, 1, 1)).total_seconds()
-    ten_minutes_ago = now - (60 * 60 * 10)
+    ten_minutes_ago = now - (60  * 10)
 
     # add current user to count
     con.zadd(online_user_key, now, user_id)
