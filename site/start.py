@@ -39,9 +39,10 @@ url_encoding = short_url.UrlEncoder('กขฃคฅฆงจฉชซฌญฎ�
 @route('/')
 @view('home')
 def index():
+    """ Home page """
     settings = _settings.__dict__
     settings.update({'short_url': ''})
-    return dict(settings=_settings)
+    return locals()
 
 
 @route('/b/:short_url')
@@ -52,8 +53,7 @@ def ressources(short_url=None):
     """
     settings = _settings.__dict__
     settings.update({'short_url': short_url})
-    return dict(settings=_settings)
-
+    return locals()
 
 @route('/randomname')
 def get_random_name():
@@ -86,7 +86,7 @@ def build():
     """
     # generate uuid for custom board
     config_id = str(uuid.uuid4())
-    settings = _settings
+    settings = _settings.__dict__
     return locals()
 
 
@@ -139,8 +139,10 @@ def server_content(filename):
     return static_file(filename, root=_settings.CONTENT_FILES_ROOT)
 
 
-@post('/online/')
-@post('/online/<board>')
+# @post('/online/')
+# @post('/online/<board>')
+# def online(board="rootboard"):
+@route('/online', method='POST')
 def online(board="rootboard"):
     """
         return number of online visitor
@@ -149,8 +151,9 @@ def online(board="rootboard"):
 
     # poor man stats : using ip address as unique id for each user
     user_id = request.remote_addr
-    board = board.decode('utf8')
-    online_user_key = "board:%s:online-users" % board
+    board_url = request.POST['id'].decode('utf8')
+    board_name = request.POST['name']
+    online_user_key = "board:%s;%s:online-users" % (board_name, board_url)
 
     # get timestamps that we will use as scores for the redis sorted sets
     now = (datetime.utcnow() - datetime(1970, 1, 1)).total_seconds()
@@ -165,7 +168,7 @@ def online(board="rootboard"):
 
     # do the same with the board name so we have a number of active
     # boards
-    con.zadd('boards:active', now, board)
+    con.zadd('boards:active', now, board_name)
     con.zremrangebyscore('boards:active', 0, ten_minutes_ago)
 
     # generate funny counter
@@ -208,34 +211,39 @@ def ressources(choice=None):
 
     elif choice == 'sources':
 
-        #import ipdb;ipdb.set_trace()
         try:
-            surl = request.query['short_url']
+            short_url = unicode(request.query['short_url'], 'utf-8')
         except Exception, e:
             raise 'no short url'
 
         # if we have a custom board
-        if surl != '':
+        if short_url != '':
             try:
                 # init sources
                 _settings.SOURCES = {}
 
                 # get board infos
-                short_url = unicode(request.query['short_url'], 'utf-8')
-                boards = Custom.get(Custom.id == url_encoding.decode_url(short_url))
-                _settings.SOURCES[99] = boards.name
-                boards = json.loads(boards.infos)
+                req = Custom.get(Custom.id == url_encoding.decode_url(short_url))
+                _settings.SOURCES[99] = req.name
+                jsboards = json.loads(req.infos)
+
+                # index boards
+                boards = [None]*16
+                for board in eval(jsboards):
+                    index = board.split(';')[0].split(':')[1]
+                    boards[int(index)] = board
 
                 # Replace default boards by custom
                 # ["index:0;url:http://sametmax.com/feed/;header:#ac2626;odd:#ececec;even:#f2f2f2"]
                 for i in range(16):
-                    try:
-                        bb = eval(boards)[i].split(';')
+                    if boards[i]:
+                        bb = boards[i].split(';')
                         _settings.SOURCES[i] = ['', '', bb[1].split(':')[1] + ':' + bb[1].split(':')[2], bb[2].split(':')[1], bb[3].split(':')[1], bb[4].split(':')[1]]
-                    except IndexError:
+
+                    else:
                         # plug the butt hole !
                         _settings.SOURCES[i] = ['', '','http://sametmax.com/feed/', 'ac2626','ececec', 'f2f2f2','', '','', '',]
-                        pass
+                        print 'ko'
 
             except Exception as e:
                 print e
