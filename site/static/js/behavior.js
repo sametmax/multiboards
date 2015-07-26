@@ -8,7 +8,6 @@ $('.email-link').each(function(i, elem){
   var text = $obfuscatedEmail.text().replace('__AT__', '@');
   var $plainTextEmail = $('<a href="mailto:' + address + '">'+ text +'</a>');
   $obfuscatedEmail.replaceWith($plainTextEmail);
-
 });
 
 var boards_colors = {};
@@ -142,12 +141,13 @@ function loadDatas()
   var path = window.location.pathname ;
   if (path.indexOf('/b/') !== -1){
     var board_id = path.replace('/b/', '')
-    $.post("/online/" + board_id, function(data) {
+    var board_name = $('#subtitle').html();
+    $.post("/online", {id : board_id, name : board_name }, function(data) {
         $("#online-users .counter").html(data);
     });
   } else {
     // we are on the main board or any other page
-    $.post("/online/", function(data) {
+    $.post("/online", function(data) {
         $("#online-users .counter").html(data);
     });
   }

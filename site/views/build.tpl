@@ -13,7 +13,7 @@
       <p class="bold">Entrez un nom pour votre Board</p>
       <input type="text" id="board-name">
       <p class="bold">Entrez l'adresse du flux RSS à ajouter</p>
-      <input type="text" id="board-url" data-uuid="{{ config_id }}" value="http://sametmax.com/feed/">
+      <input type="text" id="board-url" data-uuid="{{ config_id }}" value="http://indexerror.net/feed/qa.rss">
       <button id="submit-flux" class="btn">Ajouter le flux RSS</button>
       <br>
       <button data-url="" id="custom-url" class="hide btn custom-url save-board bold"></button>
@@ -39,7 +39,7 @@
 
 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
 <script src="/static/js/color-thief.js"></script>
 
 %rebase base settings=settings

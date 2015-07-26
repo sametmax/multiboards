@@ -6,7 +6,7 @@
 
 <!-- main boards list --> 
 <div class="row-fluid">
-  <div class="" id="row-boards" data-short-url="{{ settings.short_url }}"></div>
+  <div class="" id="row-boards" data-short-url="{{ settings['short_url'] }}"></div>
 </div> 
 
 

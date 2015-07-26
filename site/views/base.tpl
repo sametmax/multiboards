@@ -19,13 +19,13 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+    <script src="/static/js/jquery.min-1.9.1.js" type="text/javascript"></script>
     <script src="/static/js/bootstrap.min.js"></script>
     <script src="/static/js/jquery.tipsy.js"></script>
     <script src="/static/js/behavior.js?2"></script>
     <script src="/static/js/jquery.zrssfeed.js?233" ></script>
     <script src="/static/js/jquery.superbox.js?2"></script>
-    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+    <script src="/static/js/jquery-ui-1.9.1.js"></script>
     <script src="/static/js/player.js"></script>
   </head>
 
@@ -48,7 +48,7 @@
             <span class="pl-title">Radios...</span>
             <span class="btn-list"><i class="icon-white icon-list"></i></span>
             <ul class="playlist hide-it">
-              %for radio, url in settings.RADIOS:
+              %for radio, url in settings['RADIOS']:
                 <li audiourl="{{ url }}">{{ radio }}</li>
               %end
             </ul>
@@ -57,7 +57,7 @@
           <div class="nav-collapse">
             <ul class="nav">
 
-              %for i, entry in enumerate(settings.MENU):
+              %for i, entry in enumerate(settings['MENU']):
                 <li class="divider-vertical"></li>
                 <li>
                   %if "mailto:" in entry[1]:
@@ -104,7 +104,7 @@
 
               <span class="about ">
                 "Le meilleur du web"<br>
-                <span id="subtitle">sur une seule page...</span>
+                <span id="subtitle">Multiboards</span>
               </span>
             </span>
           </div><!--/.nav-collapse -->
