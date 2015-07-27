@@ -151,8 +151,9 @@ def online(board="rootboard"):
 
     # poor man stats : using ip address as unique id for each user
     user_id = request.remote_addr
-    board_url = request.POST['id'].decode('utf8')
-    board_name = request.POST['name']
+    # todo : fix the duplicate board name param
+    board_url = request.POST.get('id', b'rootboard').decode('utf8')
+    board_name = request.POST.get('name', board)
     online_user_key = "board:%s;%s:online-users" % (board_name, board_url)
 
     # get timestamps that we will use as scores for the redis sorted sets
