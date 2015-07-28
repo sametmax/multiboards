@@ -91,7 +91,7 @@
               <div class="nav-collapse">
                 <ul class="nav">
                   <li class="divider-vertical"></li>
-                  <li><a href="/build">Créer un Board</a></li>
+                  <li><a href="#">Créer un Board</a></li>
                   <li class="divider-vertical"></li>
                   <li class="dropdown">
                     <a href="#"
