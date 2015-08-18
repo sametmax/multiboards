@@ -10,6 +10,7 @@ $('.email-link').each(function(i, elem){
   $obfuscatedEmail.replaceWith($plainTextEmail);
 });
 
+
 var boards_colors = {};
 
 var options = {

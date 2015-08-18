@@ -13,7 +13,6 @@ LIBS_DIR = os.path.join(ROOT_DIR, 'libs')
 
 ######## END OF BOILER PLATE ##############
 
-
 # debug will get you error message and auto reload
 # don't set this to True in production
 DEBUG = False

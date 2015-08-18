@@ -81,7 +81,6 @@
               %end
             </ul>
 
-
             <span class="pull-right upper-right">
               <div class="nav-collapse">
                 <ul class="nav">
