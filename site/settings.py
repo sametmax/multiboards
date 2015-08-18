@@ -218,4 +218,5 @@ BOTTOM_LINE = (
     "J'ai joué la date de naissance de ma femme, celle de sa mère, celle de ma fille, j'ai pas eu un seul numéro ! pas un ! c'est vraiment une famille de cons !",
     "Depuis qu'on trie les déchets, j'ai les mêmes déchets, sauf que j'ai quatorze poubelles."
 
+
 )
