@@ -28,7 +28,7 @@
     <script src="/static/js/jquery-ui-1.9.1.js"></script>
     <script src="/static/js/player.js"></script>
   </head>
-
+ 
   <body>
 
     <div class="navbar navbar-fixed-top">
