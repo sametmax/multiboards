@@ -79,7 +79,7 @@
 
                 </li>
               %end
-            </ul>
+            </ul> 
 
             <span class="pull-right upper-right">
               <div class="nav-collapse">
