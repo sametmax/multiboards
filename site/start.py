@@ -200,17 +200,21 @@ def ressources(choice=None):
         return news to scan feed
     """
 
+    radios = _settings.RADIOS
+    sources = _settings.SOURCES
+    bottom_news = _settings.BOTTOM_NEWS
+    bottom_line = _settings.BOTTOM_LINE
+    imgur = _settings.IMGUR
+
     if choice == 'radios':
 
         # pick up radio list from setting
         # for now we are only playing ogg radios format
         radios = []
-        for playlist in _settings.RADIOS:
+        for playlist in radios:
             radios.append({'name': playlist[0], 'url': playlist[1]})
 
         return json.dumps(radios)
-
-
 
     elif choice == 'sources':
 
@@ -225,11 +229,11 @@ def ressources(choice=None):
             print 'there is a source !'
             try:
                 # init sources
-                _settings.SOURCES = {}
+                sources = {}
 
                 # get board infos
                 req = Custom.get(Custom.id == url_encoding.decode_url(short_url))
-                _settings.SOURCES[99] = req.name
+                sources[99] = req.name
                 jsboards = json.loads(req.infos)
 
                 # index boards
@@ -243,29 +247,29 @@ def ressources(choice=None):
                 for i in range(16):
                     if boards[i]:
                         bb = boards[i].split(';')
-                        _settings.SOURCES[i] = ['', '', bb[1].split(':')[1] + ':' + bb[1].split(':')[2], bb[2].split(':')[1], bb[3].split(':')[1], bb[4].split(':')[1]]
+                        sources[i] = ['', '', bb[1].split(':')[1] + ':' + bb[1].split(':')[2], bb[2].split(':')[1], bb[3].split(':')[1], bb[4].split(':')[1]]
 
                     else:
                         # plug the butt hole !
-                        _settings.SOURCES[i] = ['', '','http://sametmax.com/feed/', 'ac2626','ececec', 'f2f2f2','', '','', '',]
+                        sources[i] = ['', '','http://sametmax.com/feed/', 'ac2626','ececec', 'f2f2f2','', '','', '',]
                         print 'ko'
 
             except Exception as e:
                 print e
                 raise 'Et merde!'
 
-        print json.dumps(_settings.SOURCES)
+        print json.dumps(sources)
 
-        return json.dumps(_settings.SOURCES)
+        return json.dumps(sources)
 
     elif choice == 'news':
-        return json.dumps(_settings.BOTTOM_NEWS)
+        return json.dumps(bottom_news)
 
     elif choice == 'imgur':
-        return urllib.urlopen(_settings.IMGUR).read()
+        return urllib.urlopen(imgur).read()
 
     elif choice == 'bottomline':
-        return _settings.BOTTOM_LINE[random.randrange(0, len(_settings.BOTTOM_LINE))]
+        return bottom_line[random.randrange(0, len(bottom_line))]
 
 
 @clize.clize
