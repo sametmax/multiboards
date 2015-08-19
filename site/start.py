@@ -254,6 +254,8 @@ def ressources(choice=None):
                 print e
                 raise 'Et merde!'
 
+        print json.dumps(_settings.SOURCES)
+
         return json.dumps(_settings.SOURCES)
 
     elif choice == 'news':
