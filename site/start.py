@@ -220,6 +220,7 @@ def ressources(choice=None):
             raise 'no short url'
 
         # if we have a custom board
+        print 'short_url', short_url
         if short_url != '' and short_url != 'Multiboards':
             try:
                 # init sources
