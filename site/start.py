@@ -224,9 +224,7 @@ def ressources(choice=None):
             raise 'no short url'
 
         # if we have a custom board
-        print 'short_url', short_url
         if short_url != '' and short_url != 'Multiboards':
-            print 'there is a source !'
             try:
                 # init sources
                 sources = {}
@@ -257,8 +255,6 @@ def ressources(choice=None):
             except Exception as e:
                 print e
                 raise 'Et merde!'
-
-        print json.dumps(sources)
 
         return json.dumps(sources)
 
