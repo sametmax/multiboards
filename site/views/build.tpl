@@ -7,6 +7,7 @@
     Créez votre Multiboards,<br><br>
     Vous pouvez créer votre propre multiboards avec les sources RSS qui vous conviennent.<br>
     Tous les Boards créés sont publics.<br>
+    Vous pourrez trouvez des <a href="http://fluxrss.fr/" target="_blank">flux à agréger ici</a>.
     </span>
 
     <span class="form-flux">
