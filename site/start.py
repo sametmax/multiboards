@@ -90,6 +90,8 @@ def build():
     return locals()
 
 
+
+
 @route('/build/save', method='POST')
 def save():
     """
@@ -152,7 +154,7 @@ def online(board="rootboard"):
     # poor man stats : using ip address as unique id for each user
     user_id = request.remote_addr
     # todo : fix the duplicate board name param
-    board_url = request.POST.get('id', b'rootboard').decode('utf8')
+    board_url = request.POST.get('id', b'Multiboards').decode('utf8')
     board_name = request.POST.get('name', board)
     online_user_key = "board:%s;%s:online-users" % (board_name, board_url)
 
@@ -183,7 +185,7 @@ def online(board="rootboard"):
 def active_boards():
     """ Return the most active boards"""
     boards = con.zrangebyscore('boards:active', 0, float('+inf'))
-    boards = [b for b in boards if b.decode('utf8') != 'rootboard']
+    boards = [b for b in boards if b.decode('utf8') != 'Multiboards']
     return {'boards': boards}
 
 
@@ -242,15 +244,26 @@ def ressources(choice=None):
 
                 # Replace default boards by custom
                 # ["index:0;url:http://sametmax.com/feed/;header:#ac2626;odd:#ececec;even:#f2f2f2"]
-                for i in range(16):
-                    if boards[i]:
-                        bb = boards[i].split(';')
-                        sources[i] = ['', '', bb[1].split(':')[1] + ':' + bb[1].split(':')[2], bb[2].split(':')[1], bb[3].split(':')[1], bb[4].split(':')[1]]
+                # for i in range(16):
+                #     if boards[i]:
+                #         bb = boards[i].split(';')
+                #         sources[i] = ['', '', bb[1].split(':')[1] + ':' + bb[1].split(':')[2], bb[2].split(':')[1], bb[3].split(':')[1], bb[4].split(':')[1]]
 
-                    else:
-                        # plug the butt hole !
-                        sources[i] = ['', '','http://sametmax.com/feed/', 'ac2626','ececec', 'f2f2f2','', '','', '',]
-                        print 'ko'
+                #     else:
+                #         # plug the butt hole !
+                #         sources[i] = ['', '','http://sametmax.com/feed/', 'ac2626','ececec', 'f2f2f2','', '','', '',]
+                #         print 'ko'
+
+                #import ipdb;ipdb.set_trace()
+                index = 0
+                for i in boards:
+                    try:
+                        index+=1
+                        bb = i.split(';')
+                        sources[index] = ['', '', bb[1].split(':')[1] + ':' + bb[1].split(':')[2], bb[2].split(':')[1], bb[3].split(':')[1], bb[4].split(':')[1]]
+                    except Exception, e:
+                        pass
+
 
             except Exception as e:
                 print e
