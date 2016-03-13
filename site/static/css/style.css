@@ -242,6 +242,9 @@ footer span{
 #online-users {
 width: 200px;
 }
+#online-users {
+clear: both;
+}
 #online-users img{
 float: left;
 margin-right: 7px;

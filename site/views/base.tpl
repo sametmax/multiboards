@@ -124,7 +124,7 @@
         <span>
             <div id="online-users">
               <img src="/static/img/people.png">
-              <p class="counter"></p>
+              <span class="counter"></span>
             </div>
        </span>
       </footer>
