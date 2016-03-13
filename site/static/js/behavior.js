@@ -155,11 +155,11 @@ function loadDatas()
 
   // populate active boards list
   $.get("/boards/best", function(data) {
-    console.log(data)
+    //console.log(data)
       $.each(data['boards'], function(i, elem){
           $("<li><a href='/b/" + elem + "' >" + elem + "</a></li>").appendTo('.dropdown-menu');
       });
-      $("#online-users .counter").html(data);
+      //$("#online-users .counter").html(data);
   });
 
   /* refresh every 10 mins */

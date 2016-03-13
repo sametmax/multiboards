@@ -20,7 +20,7 @@ import base64
 
 from datetime import datetime
 
-from bottle import route, run, view, static_file, request, HTTPError, post
+from bottle import route, get, run, view, static_file, request, HTTPError, post
 
 import settings as _settings
 
@@ -141,10 +141,7 @@ def server_content(filename):
     return static_file(filename, root=_settings.CONTENT_FILES_ROOT)
 
 
-# @post('/online/')
-# @post('/online/<board>')
-# def online(board="rootboard"):
-@route('/online', method='POST')
+@post('/online')
 def online(board="rootboard"):
     """
         return number of online visitor
@@ -159,8 +156,8 @@ def online(board="rootboard"):
     online_user_key = "board:%s;%s:online-users" % (board_name, board_url)
 
     # get timestamps that we will use as scores for the redis sorted sets
-    now = (datetime.utcnow() - datetime(1970, 1, 1)).total_seconds()
-    ten_minutes_ago = now - (60  * 10)
+    now = int((datetime.utcnow() - datetime(1970, 1, 1)).total_seconds())
+    ten_minutes_ago = int(now - (60  * 10))
 
     # add current user to count
     con.zadd(online_user_key, now, user_id)
@@ -175,10 +172,13 @@ def online(board="rootboard"):
     con.zremrangebyscore('boards:active', 0, ten_minutes_ago)
 
     # generate funny counter
-    values = [count] + [random.randint(100, 999) for i in range(3)]
-    counter = '%s,%s,%s,%s' % tuple(values)
+    # values = [count] + [random.randint(100, 999) for i in range(3)]
+    # counter = '%s,%s,%s,%s' % tuple(values)
 
-    return counter
+    if count > 1:
+        return "<b>%s</b> personnes connectées" % count
+    else:
+        return "<b>%s</b> personne connectée" % count
 
 
 @route('/boards/best')
