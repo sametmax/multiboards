@@ -1,7 +1,8 @@
 <!-- Header welcome & adds -->
 <div class="row-fluid" id="main-board">
-	<div class="thumbnail" id="imgur-thumbs"> 
-	</div> 
+<!-- 	<div class="thumbnail" id="imgur-thumbs"> 
+	</div>  -->
+	<div></br></br></div>
 </div> 
 
 <!-- main boards list --> 
