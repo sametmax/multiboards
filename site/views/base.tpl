@@ -22,8 +22,8 @@
     <script src="/static/js/jquery.min-1.9.1.js" type="text/javascript"></script>
     <script src="/static/js/bootstrap.min.js"></script>
     <script src="/static/js/jquery.tipsy.js"></script>
-    <script src="/static/js/behavior.js?2"></script>
-    <script src="/static/js/jquery.zrssfeed.js?233" ></script>
+    <script src="/static/js/behavior.js?23"></script>
+    <script src="/static/js/jquery.zrssfeed.js?2323" ></script>
     <script src="/static/js/jquery.superbox.js?2"></script>
     <script src="/static/js/jquery-ui-1.9.1.js"></script>
     <script src="/static/js/player.js"></script>
