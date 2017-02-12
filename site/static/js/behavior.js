@@ -32,6 +32,7 @@ function shuffle(o){ //v1.0
 
 function loadDatas()
 {
+ 
   /* Main boards list generator */
   $.getJSON("/json/sources?short_url=" + $('#row-boards').attr('data-short-url'), function(data) {
 
@@ -96,7 +97,7 @@ function loadDatas()
   $('#dtc-bottom-news').html('');
   $('#vdm-bottom-news').html('');
   options.title_length = 100;
-  options.limit= 1;
+  options.limit= 5;
   options.header_color = '212121';
   options.header_bgcolor = 'BBB';
   options.odd = 'FFF';
@@ -107,33 +108,33 @@ function loadDatas()
   $('<div id="dtc"></div>').appendTo('#dtc-bottom-news');
   $('#dtc').rssfeed("http://danstonchat.com/items.xml", options);
   $('<div id="vdm"></div>').appendTo('#vdm-bottom-news');
-  $('#vdm').rssfeed("http://feeds.feedburner.com/viedemerde", options);
+  $('#vdm').rssfeed("http://www.secouchermoinsbete.fr/feeds.atom", options);
 
 
   /* Scan some imgur funs */
-  $.getJSON("/json/imgur", function(data) {
-    var imgs = '';
-    $('#imgur-thumbs').html('');
-    $.each(data, function(i, items){
-      for (var i = 0; i < 17; i++) {
-        try {
-          var tr = items[i]['hash'];
-        imgs=imgs+'<span><a href="http://i.imgur.com/'+items[i]['hash']+items[i]['ext']+'" rel="superbox[gallery][my_gallery]" original-title="'+items[i]['title']+'"><img src="http://i.imgur.com/'+items[i]['hash']+items[i]['ext']+'" width="60" height="60" original-title="'+items[i]['title']+'"></a></span>';
-        }
-        catch(err)
-        {}
-      }
-    });
-    $(imgs).appendTo('#imgur-thumbs');
-  })
-  .success(function() {
-    /* superbox */
-    $.superbox();
+  // $.getJSON("/json/imgur", function(data) {
+  //   var imgs = '';
+  //   $('#imgur-thumbs').html('');
+  //   $.each(data, function(i, items){
+  //     for (var i = 0; i < 17; i++) {
+  //       try {
+  //         var tr = items[i]['hash'];
+  //       imgs=imgs+'<span><a href="http://i.imgur.com/'+items[i]['hash']+items[i]['ext']+'" rel="superbox[gallery][my_gallery]" original-title="'+items[i]['title']+'"><img src="http://i.imgur.com/'+items[i]['hash']+items[i]['ext']+'" width="60" height="60" original-title="'+items[i]['title']+'"></a></span>';
+  //       }
+  //       catch(err)
+  //       {}
+  //     }
+  //   });
+  //   $(imgs).appendTo('#imgur-thumbs');
+  // })
+  // .success(function() {
+  //   /* superbox */
+  //   $.superbox();
 
-    /*  tooltips for sharing button */
-    $('#imgur-thumbs a').tipsy({fade: true, gravity: 'n'});
+  //   /*  tooltips for sharing button */
+  //   $('#imgur-thumbs a').tipsy({fade: true, gravity: 'n'});
 
-  });
+  // });
 
   /* change bottom line */
   changeBottomLine();

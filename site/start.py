@@ -275,7 +275,8 @@ def ressources(choice=None):
         return json.dumps(bottom_news)
 
     elif choice == 'imgur':
-        return urllib.urlopen(imgur).read()
+        #return urllib.urlopen(imgur).read()
+        pass
 
     elif choice == 'bottomline':
         return bottom_line[random.randrange(0, len(bottom_line))]

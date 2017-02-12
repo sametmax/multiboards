@@ -60,48 +60,95 @@
 			if(url == null) return false;
 			
 			// Create Google Feed API address
-			var api = "http"+ s +"://ajax.googleapis.com/ajax/services/feed/load?v=1.0&callback=?&q=" + encodeURIComponent(url);
-			if (options.limit != null) api += "&num=" + options.limit;
-			if (options.key != null) api += "&key=" + options.key;
-			api += "&output=json_xml";
+			//var api = "http"+ s +"://ajax.googleapis.com/ajax/services/feed/load?v=1.0&callback=?&q=" + encodeURIComponent(url);
+			var limit = 100;
+			if (options.limit != null) limit = options.limit;
+			var api = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%20%3D%20\'" + encodeURIComponent(url) + "\'" + "%20limit%20" + limit + "&format=json";
+			//if (options.limit != null) api += "&num=" + options.limit;
+			//if (options.key != null) api += "&key=" + options.key;
+			//api += "&output=json_xml";
 
 			// Send request
 			$.getJSON(api, function(data){
 				
-				// Check for error
-				if (data.responseStatus == 200) {
-	
-					// Process the feeds
-					_process(e, data.responseData, options);
+				var durl = url;
+				try{
+					
+					if (data.query.results.feed){
+						//On Success do something.
+						// Process the feeds
+						var res = data.query.results.feed;
+						_process(e, res, options, plan='a');
+					}else{
+						//On Success do something.
+						// Process the feeds
+						var res = data.query.results.rss.channel;
+						_process(e, res, options, plan='b');
+					}
 
 					// Optional user callback function
 					if ($.isFunction(fn)) fn.call(this,$e);
-					
-				} else {
 
-					// Handle error if required
-					if (options.showerror)
-						if (options.errormsg != '') {
-							var msg = options.errormsg;
-						} else {
-							var msg = data.responseDetails;
-						};
-						$(e).html('<div class="rssError"><p>'+ msg +'</p></div>');
-				};
-			});				
+				}catch(err){
+
+					if (options.errormsg != '') {
+						var msg = options.errormsg;
+					} else {
+						var msg = data.responseDetails;
+					};
+					$(e).html('<div class="rssError"><p>problem with '+ url +'</p></div>');
+
+				}
+
+				// Optional user callback function
+				//if ($.isFunction(fn)) fn.call(this,$e);
+
+			// }).fail(function(jqXHR) {
+
+			// 	if (options.showerror){
+			// 		if (options.errormsg != '') {
+			// 			var msg = options.errormsg;
+			// 		} else {
+			// 			var msg = data.responseDetails;
+			// 		};
+			// 		$(e).html('<div class="rssError"><p>'+ msg +'</p></div>');
+			// 	};
+
+			});
+
+
+				// // Check for error
+				// if (data.responseStatus == 200) {
+	
+				// 	// Process the feeds
+				// 	_process(e, data.responseData, options);
+
+					
+				// } else {
+
+				// 	// Handle error if required
+				// 	if (options.showerror)
+				// 		if (options.errormsg != '') {
+				// 			var msg = options.errormsg;
+				// 		} else {
+				// 			var msg = data.responseDetails;
+				// 		};
+				// 		$(e).html('<div class="rssError"><p>'+ msg +'</p></div>');
+				// };
+			//});				
 		});
 	};
 	
 	// Function to create HTML result
-	var _process = function(e, data, options) {
+	var _process = function(e, data, options, plan) {
 
 		// Get JSON feed data
-		var feeds = data.feed;
+		var feeds = data;
 		if (!feeds) {
 			return false;
 		}
 		var rowArray = [];
-		var html = '';	
+		var html = '';
 		var row = 'odd';
 		var row_color = options.odd;
 		
@@ -112,9 +159,20 @@
 		}
 		
 		// Add header if required
+		if (plan == 'a') {
+			link = feeds.link[0].href;
+			description = feeds.title.content;
+			title = feeds.title.content;
+			entries = feeds.entry;
+		}else{
+			link = feeds.link[0];
+			description = feeds.description;
+			title = feeds.title;
+			entries = feeds.item;
+		}
 		if (options.header)
 			html +=	'<div class="rssHeader thumbnail" style="background-color:#'+options.header_bgcolor+';color:#'+options.header_color+'">' +
-				'<a href="'+feeds.link+'" title="'+ feeds.description +'">'+ feeds.title +'</a>' +
+				'<a href="'+link+'" title="'+ description +'">'+ title +'</a>' +
 				'</div>';
 			
 		// Add body
@@ -125,18 +183,23 @@
 
 
 		// Add feeds
-		for (var i=0; i<feeds.entries.length; i++) {
+		for (var i=0; i<options.limit; i++) {
 			
 			rowArray[i] = [];
 
 			// Get individual feed
-			var entry = feeds.entries[i];
+			var entry = entries[i];
 			var pubDate;
 			var sort = '';
 			var boards_nfo = '';
 			var end = '';
-			var title = entry.title;
-
+			if (plan == 'a') {
+				var title = entry.title.content;
+				var entry_link = entry.link[0].href;
+			}else{
+				var entry_link = entry.link;
+				var title = entry.title;				
+			}
 			// Apply sort column
 			switch (options.sort) {
 				case 'title':
@@ -155,20 +218,20 @@
 			}
 			
 			// Add feed row
-			var title_orig = entry.title;
-			if(entry.title.length > options.title_length) entry.title = entry.title.substring(0,options.title_length)+'...';
+			var title_orig = title;
+			if(title.length > options.title_length) title = title.substring(0,options.title_length)+'...';
 
 			if (options.end){
-				end = '</span><span class="feed-right"><a href="'+entry.link+'?&goto=newpost">fin</a></span>';
+				end = '</span><span class="feed-right"><a href="'+entry_link+'?&goto=newpost">fin</a></span>';
 			}
 
 			if (options.ucfirst){
-				title = ucfirst(entry.title, true);
+				title = ucfirst(title, true);
 			}
-			rowArray[i]['html'] = '<span class="feed-left"><'+ options.titletag +'> - <a href="'+ entry.link +'" original-title="'+ title_orig.replace(/\"/g,' ') +'">'+ title +'</a></'+ options.titletag +'>'+end;
+			rowArray[i]['html'] = '<span class="feed-left"><'+ options.titletag +'> - <a href="'+ entry_link +'" original-title="'+ title_orig.replace(/\"/g,' ') +'">'+ title +'</a></'+ options.titletag +'>'+end;
 
 			if (options.date && pubDate) rowArray[i]['html'] += '<div>'+ pubDate +'</div>'
-			if (options.content) {
+			if (options.content && plan == 'b') {
 			
 				// Use feed snippet if available and optioned
 				if (options.snippet && entry.contentSnippet != '') {
