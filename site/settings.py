@@ -160,7 +160,7 @@ BOTTOM_NEWS = (
     ('À la une', 'http://news.google.fr/news?pz=1&cf=all&ned=fr&hl=fr&output=rss'),
     ('International', 'http://news.google.fr/news?pz=1&cf=all&ned=fr&hl=fr&topic=w&output=rss'),
     ('Économie', 'http://news.google.fr/news?pz=1&cf=all&ned=fr&hl=fr&topic=b&output=rss'),
-    ('Divertissement', 'http://news.google.fr/news?pz=1&cf=all&ned=fr&hl=fr&topic=e&output=rss'),
+    ('Russia Today', 'https://francais.rt.com/rss'),
     ('Santé', 'http://news.google.fr/news?pz=1&cf=all&ned=fr&hl=fr&topic=m&output=rss'),
     ('Science/High-Tech', 'http://news.google.fr/news?pz=1&cf=all&ned=fr&hl=fr&topic=t&output=rss')
 )
