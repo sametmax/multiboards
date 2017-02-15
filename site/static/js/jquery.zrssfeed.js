@@ -160,16 +160,18 @@
 		
 		// Add header if required
 		if (plan == 'a') {
-			link = feeds.link[0].href;
+			link = options.url;
 			description = feeds.title.content;
 			title = feeds.title.content;
 			entries = feeds.entry;
 		}else{
-			link = feeds.link[0];
+			link = options.url;
 			description = feeds.description;
 			title = feeds.title;
 			entries = feeds.item;
 		}
+		console.log(plan + ' ' + link);
+			
 		if (options.header)
 			html +=	'<div class="rssHeader thumbnail" style="background-color:#'+options.header_bgcolor+';color:#'+options.header_color+'">' +
 				'<a href="'+link+'" title="'+ description +'">'+ title +'</a>' +
@@ -200,6 +202,8 @@
 				var entry_link = entry.link;
 				var title = entry.title;				
 			}
+
+
 			// Apply sort column
 			switch (options.sort) {
 				case 'title':

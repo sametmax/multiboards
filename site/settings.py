@@ -157,12 +157,24 @@ SOURCES = {
 # bottom news
 # set a bunch of news from various well knows sites
 BOTTOM_NEWS = (
-    ('À la une', 'http://news.google.fr/news?pz=1&cf=all&ned=fr&hl=fr&output=rss'),
-    ('International', 'http://news.google.fr/news?pz=1&cf=all&ned=fr&hl=fr&topic=w&output=rss'),
-    ('Économie', 'http://news.google.fr/news?pz=1&cf=all&ned=fr&hl=fr&topic=b&output=rss'),
-    ('Russia Today', 'https://francais.rt.com/rss'),
-    ('Santé', 'http://news.google.fr/news?pz=1&cf=all&ned=fr&hl=fr&topic=m&output=rss'),
-    ('Science/High-Tech', 'http://news.google.fr/news?pz=1&cf=all&ned=fr&hl=fr&topic=t&output=rss')
+    ('À la une', 
+     'http://news.google.fr/news?pz=1&cf=all&ned=fr&hl=fr&output=rss',
+     'http://news.google.fr/news'),
+    ('International', 
+     'http://news.google.fr/news?pz=1&cf=all&ned=fr&hl=fr&topic=w&output=rss',
+     'http://news.google.fr/news?pz=1&cf=all&ned=fr&hl=fr&topic=w'),
+    ('Économie',
+     'http://news.google.fr/news?pz=1&cf=all&ned=fr&hl=fr&topic=b&output=rss',
+     'http://news.google.fr/news?pz=1&cf=all&ned=fr&hl=fr&topic=b'),
+    ('Russia Today', 
+     'https://francais.rt.com/rss',
+     'https://francais.rt.com'),
+    ('Santé', 
+     'http://news.google.fr/news?pz=1&cf=all&ned=fr&hl=fr&topic=m&output=rss',
+     'http://news.google.fr/news?pz=1&cf=all&ned=fr&hl=fr&topic=m'),
+    ('Science/High-Tech', 
+     'http://news.google.fr/news?pz=1&cf=all&ned=fr&hl=fr&topic=t&output=rss',
+     'http://news.google.fr/news?pz=1&cf=all&ned=fr&hl=fr&topic=t')
 )
 
 

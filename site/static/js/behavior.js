@@ -49,6 +49,7 @@ function loadDatas()
         return false;
       }
 
+      options.url = item[1];
       options.title_length = 40;
       options.limit= 10;
       options.header_bgcolor = item[3];
@@ -88,13 +89,13 @@ function loadDatas()
       options.content = false;
       options.boards_nfo = false;
       options.end =  false;
+      options.url  = item[2];
       $('<div id="'+slugify(item[0])+'"></div>').appendTo('#row-bottom-news');
       $('#'+slugify(item[0])+'').rssfeed(item[1], options);
     });
   });
 
   /* DTC news & VDM */
-  $('#dtc-bottom-news').html('');
   $('#vdm-bottom-news').html('');
   options.title_length = 100;
   options.limit= 5;
@@ -105,8 +106,7 @@ function loadDatas()
   options.content = true;
   options.boards_nfo = false;
   options.end =  false;
-  $('<div id="dtc"></div>').appendTo('#dtc-bottom-news');
-  $('#dtc').rssfeed("http://danstonchat.com/items.xml", options);
+  options.url = 'http://www.secouchermoinsbete.fr/';
   $('<div id="vdm"></div>').appendTo('#vdm-bottom-news');
   $('#vdm').rssfeed("http://www.secouchermoinsbete.fr/feeds.atom", options);
 
